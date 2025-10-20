@@ -1,7 +1,9 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 * {
     outline: none;
+    user-select: none;
 }
 
 button {

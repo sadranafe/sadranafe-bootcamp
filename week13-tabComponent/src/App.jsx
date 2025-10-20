@@ -1,4 +1,5 @@
 import Tabs from "./components/Tabs/Tabs"
+import Theme from "./components/Theme"
 
 const App = () => {
   const DummyData = [
@@ -10,8 +11,9 @@ const App = () => {
 
   return (
     <>
-      <div className = "w-full h-screen flex flex-wrap justify-center items-center">
+      <div className = "w-full h-screen bg-neutral-50 dark:bg-neutral-950 flex flex-wrap justify-center items-center">
           <Tabs tabs = {DummyData}/>
+          <Theme/>
       </div>
     </>
   )
