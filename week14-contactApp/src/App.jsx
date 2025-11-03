@@ -1,7 +1,11 @@
+import ContactApp from "./components/contact/ContactApp";
+
 const App = () => {
   return (
     <>
-      <h1 className = "text-red-300">hello world</h1>
+      <div className = "bg-neutral-50 w-full h-screen flex flex-wrap justify-center items-center">
+        <ContactApp/>
+      </div>
     </>
   );
 };
