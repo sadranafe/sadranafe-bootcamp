@@ -21,5 +21,8 @@ const ValidateForm = (formData , setErrors) => {
     return Object.keys(newErrors).length === 0;
 }
 
+const FormatPhoneNumber = phone => {
+    return phone?.replace(/(\d{4})(\d{3})(\d{0,4})/, '$1-$2-$3');
+}
 
-export { ValidateForm };
+export { ValidateForm , FormatPhoneNumber };

@@ -1,7 +1,28 @@
 import SearchBar from '../SearchBar';
 import Sort from '../Sort';
 
-const ContactsHeaderPanel = ({ onDUMMYCONTACTS , onModelIsOpen , search , searchHandler , sortContactsHandler }) => {
+const ContactsHeaderPanel = ({ onDUMMYCONTACTS , onModelIsOpen , search , searchHandler , sortContactsHandler , selectedContact , isSelecting , onSelectedContact , onIsSelecting , selectedGroupContacts , setToast , onToastIsFired }) => {
+    const selectHandler = () => {
+        onIsSelecting(!isSelecting);
+        if(isSelecting && selectedGroupContacts.length !== 0) {
+            onDUMMYCONTACTS(prevContact => {
+                const index = prevContact.findIndex(contact => contact.id === selectedContact.id);
+                const updated = prevContact.filter(contact => !contact.selected);
+                const nextIndex = index.length >= updated.length ? updated.length - 1 : index;
+                if(updated.length === 0) {
+                    onSelectedContact({})
+                } else {
+                    onSelectedContact(() => {
+                        onToastIsFired(true)
+                        setToast({ type : 'success' , content : 'contact(s) deleted successfully.' })
+                        return updated[nextIndex];
+                    })
+                }
+                return updated;
+            })
+        }
+    }
+
     return (
         <>
             <div className = 'mb-5'>
@@ -17,7 +38,7 @@ const ContactsHeaderPanel = ({ onDUMMYCONTACTS , onModelIsOpen , search , search
                 <div className = 'flex items-center justify-between mt-5'>
                     <h1 className = 'capitalize text-xl font-semibold'>contacts</h1>
                     <div className = 'flex gap-3'>
-                        <button className = 'text-blue-500 hover:border-blue-500 px-3 cursor-pointer rounded-full border border-transparent transition-all'>select</button>
+                        <button onClick = {selectHandler} className = {`${isSelecting ? 'text-red-500 hover:border-red-500' : 'text-blue-500 hover:border-blue-500'} px-3 cursor-pointer rounded-full border border-transparent transition-all`}>{isSelecting ? selectedGroupContacts.length !== 0 ? 'delete' : 'cancel' : 'select'}</button>
                         <Sort sortContactsHandler = {sortContactsHandler}/>
                     </div>
                 </div>
