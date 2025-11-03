@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ModelInput from "./modelInput";
 import { ValidateForm } from "../utils/helper";
 
-const Model = ({ DUMMYCONTACTS , onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }) => {
+const Model = ({ onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }) => {
     const inputs = [
         { type: 'text', labelName: 'name', icon: 'user' },
         { type: 'email', labelName: 'email', icon: 'envelope' },
@@ -76,7 +76,7 @@ const Model = ({ DUMMYCONTACTS , onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }
                     
                     <div className = "flex justify-evenly items-center">
                         <button onClick = {closeModelHandler} className = "capitalize px-4 p-2 rounded-lg cursor-pointer border border-transparent hover:border-red-400 hover:text-red-500 transition">cancel</button>
-                        <button onClick = {submitFormHandler} className = "disabled:bg-sky-400/70 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer capitalize px-4 p-2 rounded-lg bg-sky-500 text-white hover:bg-sky-600 shadow-md transition">create contact</button>
+                        <button onClick = {submitFormHandler} disabled = {formIsEmpty || Object.values(errors).some(err => err)} className = "disabled:bg-sky-400/70 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer capitalize px-4 p-2 rounded-lg bg-sky-500 text-white hover:bg-sky-600 shadow-md transition">create contact</button>
                     </div>
                 </div>
             </div>
