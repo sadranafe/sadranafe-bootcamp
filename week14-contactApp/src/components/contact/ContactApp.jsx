@@ -12,13 +12,14 @@ const ContactApp = () => {
     ])
 
     const [modelIsOpen , setModelIsOpen] = useState(false);
+    const [selectedContact , setSelectedContact] = useState({});
 
     return (
         <>
             <div className = "bg-neutral-200/40 w-8/12 flex justify-between items-start content-center shadow-md rounded-4xl overflow-hidden p-5 h-[500px]">
                 <SideBar/>
 
-                <ContactsPanel DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) }/>
+                <ContactsPanel DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) } selectedContact = {selectedContact} onSelectedContact = {contact => setSelectedContact(contact)}/>
             </div>
 
             <Model onDUMMYCONTACTS = {setDummyContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) }/>

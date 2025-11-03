@@ -1,12 +1,17 @@
 import ContactAvatar from './ContactAvatar';
 
-const Contact = ({ currentContact }) => {
+const Contact = ({ currentContact , isActive , onActiveContact , onSelectedContact }) => {
     const {name , email , id} = currentContact;
+
+    const contactHandler = () => {
+        onSelectedContact(currentContact);
+        onActiveContact();
+    }
 
     return (
         <>
-            <div className = 'hover:bg-white/30 border-transparent transition-all duration-100 border backdrop-blur-xl flex flex-wrap justify-between items-center w-full bg-neutral-50 rounded-xl overflow-hidden px-3'>
-                <button className = 'w-11/12 cursor-pointer p-1.5 h-full flex items-center'>
+            <div className = {`${isActive ? 'bg-white/25 border-white/80 shadow-[0_5px_10px_rgba(0,0,0,0.05)] ' : 'bg-white/5 hover:bg-white/30 border-transparent'} hover:bg-white/30 border-transparent transition-all duration-100 border backdrop-blur-xl flex flex-wrap justify-between items-center w-full bg-neutral-50 rounded-xl overflow-hidden px-3`}>
+                <button onClick = {contactHandler} className = 'w-11/12 cursor-pointer p-1.5 h-full flex items-center'>
                     <div className = 'w-3/12 flex justify-start items-center gap-3'>
                         <ContactAvatar name = {name} customClasses = 'w-9 h-9'/>
 
