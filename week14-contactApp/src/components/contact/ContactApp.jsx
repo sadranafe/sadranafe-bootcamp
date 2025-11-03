@@ -11,14 +11,17 @@ const ContactApp = () => {
         { id: 3 , name : 'sarina' , email : 'sarinal83@gmail.com' , phoneNumber : '09190719570' , selected : false },
     ])
 
+    const [modelIsOpen , setModelIsOpen] = useState(false);
+
     return (
         <>
             <div className = "bg-neutral-200/40 w-8/12 flex justify-between items-start content-center shadow-md rounded-4xl overflow-hidden p-5 h-[500px]">
                 <SideBar/>
-                <ContactsPanel DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts}/>
+
+                <ContactsPanel DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) }/>
             </div>
 
-            <Model/>
+            <Model DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) }/>
         </>
     );
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import ContactAvatar from './ContactAvatar';
 
 const Contact = ({ currentContact }) => {
