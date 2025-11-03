@@ -1,16 +1,62 @@
-# React + Vite
+# 🧩 Contact APP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and minimal **Contact App** built with **React** and **TailwindCSS** to efficiently handle adding, editing, searching, and deleting contacts.    
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚡ **Vite + React** setup for ultra-fast development  
+- 🎨 **TailwindCSS v4.1** for utility-first styling  
+- ➕ **Add new contacts**
+- ✏️ **Edit existing contacts**
+- 🗑️ **Delete contacts**
+- 🔔 **Custom toast notifications**
+- 🔍 **Search contacts by name or email**
 
-## React Compiler
+## 🧠 Project Structure
+```
+src
+│
+├── components
+│ ├── contact
+│ │ ├── Contact.jsx
+│ │ ├── ContactApp.jsx
+│ │ └── ContactAvatar.jsx
+│ │
+│ └── contactPanel
+│ ├── ContactsHeaderPanel.jsx
+│ ├── ContactsMainPanel.jsx
+│ ├── ContactsPanel.jsx
+│ ├── EmptyState.jsx
+│ ├── ErrorMessage.jsx
+│ ├── Model.jsx
+│ ├── ModelInput.jsx
+│ ├── SearchBar.jsx
+│ ├── SideBar.jsx
+│ ├── Sort.jsx
+│ └── Toast.jsx
+│
+├── utils
+│ └── helper.js
+│
+├── App.jsx
+├── index.css
+└── main.jsx
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📦 Installation
 
-## Expanding the ESLint configuration
+```bash
+# Clone this repo
+git clone https://github.com/sadranafe/sadranafe-bootcamp.git
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Move into the project folder
+cd sadranafe-bootcamp
+cd week14-contactApp
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+
+```
