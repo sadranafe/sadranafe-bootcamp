@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ModelInput from "./modelInput";
+import { ValidateForm } from "../utils/helper";
 
 const Model = ({ DUMMYCONTACTS , onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }) => {
     const inputs = [
@@ -9,6 +10,8 @@ const Model = ({ DUMMYCONTACTS , onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }
     ]
 
     const [modelForm , setModelForm] = useState({ name: '', email: '', phoneNumber: '' });
+    const [errors , setErrors] = useState({});
+    const formIsEmpty = !modelForm.name || !modelForm.email || !modelForm.phoneNumber;
 
     useEffect(() => {
         const ESCHandler = ev => {
@@ -23,6 +26,7 @@ const Model = ({ DUMMYCONTACTS , onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }
     const formHandler = ev => {
         const {name , value} = ev.target;
         setModelForm(prev => ({ ...prev , [name] : value.trimStart() }));
+        if(errors[name]) setErrors(prev => ({ ...prev , [name] : '' }));
     }
 
     const submitFormHandler = () => {
@@ -34,12 +38,15 @@ const Model = ({ DUMMYCONTACTS , onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }
             selected : false,
         }
 
+        if(!ValidateForm(modelForm , setErrors)) return;
         onDUMMYCONTACTS(prevContacts => ([...prevContacts , newContact]));
         setModelForm({ name: '', email: '', phoneNumber: '' });
+        setErrors({});
     }
 
     const closeModelHandler = () => {
-        onModelIsOpen(false)
+        onModelIsOpen(false);
+        setErrors({});
     }
 
     return (
@@ -61,7 +68,7 @@ const Model = ({ DUMMYCONTACTS , onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }
                         {
                             inputs.map((input , index) => {
                                 return (
-                                    <ModelInput key = {index} value = {modelForm} onChange = {formHandler} labelName = {input.labelName} labelIcon = {input.icon} inputType = {input.type}/>
+                                    <ModelInput key = {index} value = {modelForm} onChange = {formHandler} error = {errors[input.labelName]} fieldHasError = {errors[input.labelName] !== '' && errors[input.labelName] !== undefined} labelName = {input.labelName} labelIcon = {input.icon} inputType = {input.type}/>
                                 )
                             })
                         }
