@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContactsPanel from "../contactPanel/ContactsPanel";
 import SideBar from "../SideBar";
 import Model from "../model";
@@ -13,10 +13,24 @@ const ContactApp = () => {
 
     const [modelIsOpen , setModelIsOpen] = useState(false);
     const [selectedContact , setSelectedContact] = useState({});
+    const [searchInput , setSearchInput] = useState('');
+    const [debouncedSearch , setDebouncedSearch] = useState('');
     const [sortOption , setSortOption] = useState('default');
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearch(searchInput);
+
+            return () => clearTimeout(timer);
+        },500)
+    },[searchInput])
+
     const selectedContactIsEmpty = Object.values(selectedContact).length === 0;
-    const sortedContacts = [...DummyContacts].sort((a , b) => {
+    const searchedContacts = [...DummyContacts].filter(contact => 
+        contact.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        contact.email.toLowerCase().includes(debouncedSearch.toLowerCase())
+    )
+    const sortedContacts = searchedContacts.sort((a , b) => {
         switch(sortOption) {
             case 'default' : {
                 return DummyContacts;
@@ -31,6 +45,10 @@ const ContactApp = () => {
             }
         }
     })
+
+    const searchHandler = val => {
+        setSearchInput(val)
+    }
     
     const sortContactsHandler = val => {
         setSortOption(val)
@@ -41,7 +59,7 @@ const ContactApp = () => {
             <div className = "bg-neutral-200/40 w-8/12 flex justify-between items-start content-center shadow-md rounded-4xl overflow-hidden p-5 h-[500px]">
                 <SideBar/>
 
-                <ContactsPanel DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts} contacts = {sortedContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) } selectedContactIsEmpty = {selectedContactIsEmpty} selectedContact = {selectedContact} onSelectedContact = {contact => setSelectedContact(contact)} sortContactsHandler = {sortContactsHandler}/>
+                <ContactsPanel DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts} contacts = {sortedContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) } selectedContactIsEmpty = {selectedContactIsEmpty} selectedContact = {selectedContact} onSelectedContact = {contact => setSelectedContact(contact)} search = { searchInput } searchHandler = { searchHandler } sortContactsHandler = {sortContactsHandler}/>
             </div>
 
             <Model onDUMMYCONTACTS = {setDummyContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) }/>
