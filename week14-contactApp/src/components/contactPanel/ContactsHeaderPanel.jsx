@@ -1,7 +1,7 @@
 import SearchBar from '../SearchBar';
 import Sort from '../Sort';
 
-const ContactsHeaderPanel = ({ onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }) => {
+const ContactsHeaderPanel = ({ onDUMMYCONTACTS , modelIsOpen , onModelIsOpen , sortContactsHandler }) => {
     return (
         <>
             <div className = 'mb-5'>
@@ -18,7 +18,7 @@ const ContactsHeaderPanel = ({ onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }) 
                     <h1 className = 'capitalize text-xl font-semibold'>contacts</h1>
                     <div className = 'flex gap-3'>
                         <button className = 'text-blue-500 hover:border-blue-500 px-3 cursor-pointer rounded-full border border-transparent transition-all'>select</button>
-                        <Sort/>
+                        <Sort sortContactsHandler = {sortContactsHandler}/>
                     </div>
                 </div>
             </div>

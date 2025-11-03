@@ -13,13 +13,35 @@ const ContactApp = () => {
 
     const [modelIsOpen , setModelIsOpen] = useState(false);
     const [selectedContact , setSelectedContact] = useState({});
+    const [sortOption , setSortOption] = useState('default');
+
+    const selectedContactIsEmpty = Object.values(selectedContact).length === 0;
+    const sortedContacts = [...DummyContacts].sort((a , b) => {
+        switch(sortOption) {
+            case 'default' : {
+                return DummyContacts;
+            }
+
+            case 'asc' : {
+                return a.name.localeCompare(b.name)
+            }
+
+            case 'desc' : {
+                return b.name.localeCompare(a.name)
+            }
+        }
+    })
+    
+    const sortContactsHandler = val => {
+        setSortOption(val)
+    }
 
     return (
         <>
             <div className = "bg-neutral-200/40 w-8/12 flex justify-between items-start content-center shadow-md rounded-4xl overflow-hidden p-5 h-[500px]">
                 <SideBar/>
 
-                <ContactsPanel DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) } selectedContact = {selectedContact} onSelectedContact = {contact => setSelectedContact(contact)}/>
+                <ContactsPanel DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts} contacts = {sortedContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) } selectedContactIsEmpty = {selectedContactIsEmpty} selectedContact = {selectedContact} onSelectedContact = {contact => setSelectedContact(contact)} sortContactsHandler = {sortContactsHandler}/>
             </div>
 
             <Model onDUMMYCONTACTS = {setDummyContacts} modelIsOpen = {modelIsOpen} onModelIsOpen = { status => setModelIsOpen(status) }/>
