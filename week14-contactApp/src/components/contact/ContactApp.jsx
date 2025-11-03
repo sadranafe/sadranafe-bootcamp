@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ContactsPanel from "../contactPanel/ContactsPanel";
+import SideBar from "../SideBar";
 
 const ContactApp = () => {
     const [DummyContacts, setDummyContacts] = useState([
@@ -12,6 +13,7 @@ const ContactApp = () => {
     return (
         <>
             <div className = "bg-neutral-200/40 w-8/12 flex justify-between items-start content-center shadow-md rounded-4xl overflow-hidden p-5 h-[500px]">
+                <SideBar/>
                 <ContactsPanel DUMMYCONTACTS = {DummyContacts} onDUMMYCONTACTS = {setDummyContacts}/>
             </div>
         </>
