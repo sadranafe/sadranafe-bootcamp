@@ -22,7 +22,7 @@ const SideBar = ({ DUMMYCONTACTS , dummycontactsHandler , onUpdate , onSelectedC
 
     const editHandler = ev => {
         const { name , value } = ev.target;
-        const rawValue = value.replace(/\D/g, "");
+        const rawValue = name === 'phoneNumber' ?  value.replace(/\D/g , "") : value;
         setEditData(prev => {
             return ({...prev , [name] : rawValue})
         })
