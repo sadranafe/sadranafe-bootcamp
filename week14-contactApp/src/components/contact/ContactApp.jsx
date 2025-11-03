@@ -1,3 +1,6 @@
+import { useState } from "react";
+import ContactsPanel from "../contactPanel/ContactsPanel";
+
 const ContactApp = () => {
     const [DummyContacts, setDummyContacts] = useState([
         { id: 0 , name : 'sadra' , email : 'sadranafe7@gmail.com' , phoneNumber : '09109919520' , selected : false },
@@ -5,10 +8,12 @@ const ContactApp = () => {
         { id: 2 , name : 'reza' , email : 'reza24@gmail.com' , phoneNumber : '09129214020' , selected : false },
         { id: 3 , name : 'sarina' , email : 'sarinal83@gmail.com' , phoneNumber : '09190719570' , selected : false },
     ])
-    
+
     return (
         <>
-            
+            <div className = "bg-neutral-200/40 w-8/12 flex justify-between items-start content-center shadow-md rounded-4xl overflow-hidden p-5 h-[500px]">
+                <ContactsPanel/>
+            </div>
         </>
     );
 };
