@@ -51,11 +51,11 @@ const Input = ({ DUMMYCities }) => {
                 {
                     DUMMYFilteredCities.length !== 0 &&
                     // i use stopPropagation to prevent the eventListener from being triggered in the windows.
-                    <ul onClick = {ev => ev.stopPropagation()} className = "max-h-[146px] absolute left-0 right-0 mt-2 bg-white border border-gray-200 rounded-2xl shadow-lg overflow-scroll">
+                    <ul onClick = {ev => ev.stopPropagation()} className = "max-h-[146px] absolute left-0 right-0 mt-2 bg-neutral-100 border backdrop-blur-xl border-white/60 rounded-2xl shadow-[0_5px_10px_rgba(0,0,0,0.05)] overflow-scroll">
                         {
                             DUMMYFilteredCities.map((city , index) => {
                                 return (
-                                    <li key = {index} onClick = {() => selectHandler(city)} className = "px-4 py-2 hover:bg-blue-50 cursor-pointer transition-colors">{city}</li>
+                                    <li key = {index} onClick = {() => selectHandler(city)} className = "px-4 py-2 hover:bg-neutral-50 cursor-pointer transition-colors">{city}</li>
                                 )
                             })
                         }
