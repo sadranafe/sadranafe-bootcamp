@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Contact from '../contact/Contact';
 import EmptyState from '../EmptyState';
+import { ContactAppContext } from '../context/ContactAppContext';
 
-const ContactsMainPanel = ({ DUMMYCONTACTS , onDUMMYCONTACTS , contacts , onModelIsOpen , selectedContact , isSelecting , selectedGroupContacts , setSelectedGroupContacts , onSelectedContact }) => {
+const ContactsMainPanel = ({ DUMMYCONTACTS , onDUMMYCONTACTS , contacts , selectedContact , isSelecting , selectedGroupContacts , setSelectedGroupContacts , onSelectedContact }) => {
+    const {state , dispatch} = useContext(ContactAppContext);
     const [activeContact , setActiveContact] = useState();
 
     const toggleContactSelection = id => {
@@ -20,7 +22,7 @@ const ContactsMainPanel = ({ DUMMYCONTACTS , onDUMMYCONTACTS , contacts , onMode
             <div className = 'w-full h-full flex flex-wrap justify-center items-start content-start pb-2 gap-2.5 overflow-y-scroll'>
                 {
                     DUMMYCONTACTS.length === 0 ? 
-                    <EmptyState type = 'noContacts' action = {() => onModelIsOpen(true)}/>
+                    <EmptyState type = 'noContacts' action = {() => dispatch({ type : 'MODAL_STATUS' , payLoad : true })}/>
                     : contacts.length === 0 ? 
                     <EmptyState type = 'noResults'/>
                     :

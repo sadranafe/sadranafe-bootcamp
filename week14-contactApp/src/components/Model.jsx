@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ModelInput from "./modelInput";
 import { ValidateForm } from "../utils/helper";
+import { ContactAppContext } from "./context/ContactAppContext";
 
-const Model = ({ onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }) => {
+const Model = () => {
+    const {state , dispatch} = useContext(ContactAppContext);
+    const { modalIsOpen } = state;
+    
     const inputs = [
         { type: 'text', labelName: 'name', icon: 'user' },
         { type: 'email', labelName: 'email', icon: 'envelope' },
@@ -15,12 +19,14 @@ const Model = ({ onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }) => {
 
     useEffect(() => {
         const ESCHandler = ev => {
-            if(ev.key === 'Escape') onModelIsOpen(false)
+            if(ev.key === 'Escape') {
+                dispatch({ type : 'MODAL_STATUS' , payLoad : false })
+            }
         }
 
         window.addEventListener('keydown' , ESCHandler)
         return () => window.removeEventListener('keydown' , ESCHandler)
-    },[modelIsOpen])
+    },[modalIsOpen])
 
 
     const formHandler = ev => {
@@ -39,19 +45,23 @@ const Model = ({ onDUMMYCONTACTS , modelIsOpen , onModelIsOpen }) => {
         }
 
         if(!ValidateForm(modelForm , setErrors)) return;
-        onDUMMYCONTACTS(prevContacts => ([...prevContacts , newContact]));
+        // onDUMMYCONTACTS(prevContacts => ([...prevContacts , newContact])); > DONE
+        
+        dispatch({ type : "ADD_CONTACT" , payLoad : newContact })
+
         setModelForm({ name: '', email: '', phoneNumber: '' });
         setErrors({});
     }
 
     const closeModelHandler = () => {
-        onModelIsOpen(false);
+        // onModelIsOpen(false); > DONE
+        dispatch({ type : 'MODAL_STATUS' , payLoad : false })
         setErrors({});
     }
 
     return (
         <>
-            <div className = {`${modelIsOpen ? 'opacity-100 visible' : ' invisible opacity-0'} transition-all duration-100 w-screen z-10 h-screen fixed top-0 left-0`}>
+            <div className = {`${modalIsOpen ? 'opacity-100 visible' : ' invisible opacity-0'} transition-all duration-100 w-screen z-10 h-screen fixed top-0 left-0`}>
                 <div onClick = {closeModelHandler} className = "overlay w-full h-full bg-black/40 backdrop-blur-sm z-10"></div>
                 <div className = "w-full max-w-md p-6 absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/80 bg-white/65 backdrop-blur-sm shadow-[0_5px_10px_rgba(0,0,0,0.05)]">
                     <div className = "header flex justify-between items-start mb-4">

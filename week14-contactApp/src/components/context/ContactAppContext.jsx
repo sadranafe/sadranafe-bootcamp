@@ -1,10 +1,10 @@
 import { useReducer , createContext } from "react";
-import { initialContactState , contactReducer } from "../reducers/ContactAppReducer";
+import ContactReducer, { InitialContactState } from "../reducers/ContactAppReducer";
 
 const ContactAppContext = createContext();
 
 const ContactAppContextProvider = ({ children }) => {
-    const [state , dispatch] = useReducer(contactReducer , initialContactState);
+    const [state , dispatch] = useReducer(ContactReducer , InitialContactState);
     return (
         <ContactAppContext.Provider value = {{ state , dispatch }}>
             { children }
