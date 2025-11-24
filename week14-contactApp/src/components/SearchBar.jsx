@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { ContactAppContext } from "./context/ContactAppContext";
 
 const SearchBar = () => {
@@ -27,4 +27,4 @@ const SearchBar = () => {
     );
 };
 
-export default SearchBar;
+export default memo(SearchBar);

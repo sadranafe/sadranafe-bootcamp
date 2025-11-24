@@ -1,3 +1,4 @@
+import { memo } from "react";
 import ErrorMessage from "./ErrorMessage";
 
 const ModelInput = ({ value , onChange , error , fieldHasError , inputType , labelName , labelIcon }) => {
@@ -16,4 +17,4 @@ const ModelInput = ({ value , onChange , error , fieldHasError , inputType , lab
     );
 };
 
-export default ModelInput;
+export default memo(ModelInput);
