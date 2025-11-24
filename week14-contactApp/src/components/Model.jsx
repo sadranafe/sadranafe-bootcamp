@@ -45,7 +45,6 @@ const Model = () => {
         }
 
         if(!ValidateForm(modelForm , setErrors)) return;
-        // onDUMMYCONTACTS(prevContacts => ([...prevContacts , newContact])); > DONE
         
         dispatch({ type : "ADD_CONTACT" , payLoad : newContact })
 
@@ -54,7 +53,6 @@ const Model = () => {
     }
 
     const closeModelHandler = () => {
-        // onModelIsOpen(false); > DONE
         dispatch({ type : 'MODAL_STATUS' , payLoad : false })
         setErrors({});
     }
