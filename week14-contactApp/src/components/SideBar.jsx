@@ -1,19 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ContactAvatar from './contact/ContactAvatar';
 import ErrorMessage from './ErrorMessage';
 import { FormatPhoneNumber, ValidateForm } from '../utils/helper';
+import { ContactAppContext } from './context/ContactAppContext';
 
-const SideBar = ({ DUMMYCONTACTS , dummycontactsHandler , onUpdate , onSelectedContact , setToast , onToastIsFired , selectedContact , selectedContactIsEmpty , isEditing , onIsEditing }) => {
+const SideBar = () => {
+    const {state , dispatch} = useContext(ContactAppContext);
+    const { isEditing , selectedContact } = state;
+
     const [editData , setEditData] = useState(selectedContact || {});
     const [errors , setErrors] = useState({});
-    const { name } = selectedContact;
+    const { name } = editData;
+    const selectedContactIsEmpty = Object.values(selectedContact).length === 0;
 
     useEffect(() => {
         setEditData(selectedContact || {});
         setErrors({})
+        dispatch({ type : 'SET_EDITING' , payLoad : false })
 
         const ESCHandler = ev => {
-            if(ev.key === 'Escape') onSelectedContact({});
+            if(ev.key === 'Escape') dispatch({ type : "SET_SELECTED_CONTACT" , payLoad : {} });
         }
 
         window.addEventListener('keydown' , ESCHandler)
@@ -33,33 +39,21 @@ const SideBar = ({ DUMMYCONTACTS , dummycontactsHandler , onUpdate , onSelectedC
 
     const editContactHandler = () => {
         if(!ValidateForm(editData , setErrors)){
-            onToastIsFired(true);
-            setToast({type : 'error' , content : 'fields has error'});
+            dispatch({ type : "TOAST" , payLoad : {isFired : true , type : 'error' , content : 'fields have error'} })
             return;
         };
-        if(isEditing) onUpdate(editData);
-        onIsEditing(!isEditing);
+
+        if(isEditing) dispatch({ type : 'UPDATE_CONTACT' , payLoad : editData });
+
+        dispatch({ type : 'EDITING_STATUS' , payLoad : !isEditing })
         setErrors({});
     }
     const cancelOrDeleteHandler = () => {
         if(isEditing) {
-            onIsEditing(false);
+            dispatch({ type : 'EDITING_STATUS' , payLoad : false })
             setEditData(selectedContact)
         } else {
-            dummycontactsHandler(prevContact => {
-                const index = prevContact.findIndex(contact => contact.id === selectedContact.id);
-                const updated = prevContact.filter(contact => contact.id !== selectedContact.id);
-
-                if(updated.length > 0) {
-                    const nextIndex = index >= updated.length ? updated.length - 1 : index;
-                    onSelectedContact(updated[nextIndex])
-                } else {
-                    onSelectedContact({})
-                }
-                onToastIsFired(true)
-                setToast({type : 'info' , content : 'user deleted'})
-                return updated;
-            })
+            dispatch({ type : 'DELETE_CONTACT' , payLoad : selectedContact.id })
         }
     }
     return (

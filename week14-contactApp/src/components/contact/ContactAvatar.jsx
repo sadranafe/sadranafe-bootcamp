@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ContactAvatar = ({ name , customClasses , textSize = "text-lg" }) => {
     return (
         <>

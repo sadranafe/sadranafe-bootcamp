@@ -1,16 +1,18 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { ContactAppContext } from "./context/ContactAppContext";
 
-const Toast = ({ type , content , toastIsFired , onToastIsFired }) => {
-    
+const Toast = () => {
+    const { state , dispatch } = useContext(ContactAppContext);
+    const { isFired , type , content } = state.toast
     useEffect(() => {
-        if(toastIsFired) {
+        if(isFired) {
             const timer = setTimeout(() => {
-                onToastIsFired(false);
+                dispatch({ type : 'TOAST' , payLoad : {isFired : false , type , content} })
             },3000)
 
             return () => clearTimeout(timer);
         }
-    },[toastIsFired , onToastIsFired])
+    },[isFired])
 
     const typeStyles = {
         success : 'bg-emerald-400',
@@ -19,7 +21,7 @@ const Toast = ({ type , content , toastIsFired , onToastIsFired }) => {
     }
     return (
         <>
-            <div className = {`${toastIsFired ? 'opacity-100 block visible' : 'hidden opacity-0 invisible'} z-30 shadow-md absolute flex top-1 right-2 min-w-[150px] h-10 justify-start items-center gap-2.5 p-1.5 px-2.5 border-dashed border border-gray-300 rounded-2xl transition-all`}>
+            <div className = {`${isFired ? 'opacity-100 block visible' : 'hidden opacity-0 invisible'} z-30 shadow-md absolute flex top-1 right-2 min-w-[150px] h-10 justify-start items-center gap-2.5 p-1.5 px-2.5 border-dashed border border-gray-300 rounded-2xl transition-all`}>
                 <p className = {`font-medium text-lg w-[25px] h-[25px] rounded-full flex justify-center items-center ${typeStyles[type]}`}>
                     {type === 'success' && <i className = "bx bx-check text-white"></i>}
                     {type === 'error' && <i className = "bx bx-x text-white"></i>}

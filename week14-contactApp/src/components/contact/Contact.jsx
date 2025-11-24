@@ -1,10 +1,14 @@
+import { useContext } from 'react';
 import ContactAvatar from './ContactAvatar';
+import { ContactAppContext } from '../context/ContactAppContext';
 
-const Contact = ({ currentContact , isActive , onActiveContact , onSelectedContact , onToggleContactSelection , isSelecting , selectedGroupContacts , selectedStatus }) => {
+const Contact = ({ currentContact , isActive , onActiveContact , onToggleContactSelection , selectedStatus }) => {
+    const { state , dispatch } = useContext(ContactAppContext);
+    const { isSelecting } = state;
     const {name , email , id} = currentContact;
 
     const contactHandler = () => {
-        onSelectedContact(currentContact);
+        dispatch({ type : 'SET_SELECTED_CONTACT' , payLoad : currentContact })
         onActiveContact();
     }
 
