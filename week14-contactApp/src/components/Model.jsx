@@ -4,15 +4,11 @@ import * as yup from 'yup';
 
 import ModelInput from "./modelInput";
 import { ContactAppContext } from "./context/ContactAppContext";
+import { contactEditSchema } from "../utils/ContactAppEditSchema";
 
 const Model = () => {
     const {state , dispatch} = useContext(ContactAppContext);
     const { modalIsOpen } = state;
-
-    const nameRegex = /^[A-Za-z\s]{2,30}$/;
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
-    const phoneNumberPattern = /^[0-9]{10,15}$/;
-    const xssPattern = /<script|<\/script|onerror|onload|javascript:/i;
 
     const formik = useFormik({
         initialValues : {
@@ -20,22 +16,7 @@ const Model = () => {
             email : '',
             phoneNumber : ''
         },
-        validationSchema : yup.object({
-            name : yup.string()
-            .min(2 , 'must be 2 characters or more')
-            .max(30 , 'must be 30 character or less')
-            .test('name-valid' , 'Name must contain only letters and spaces (2 - 30 characters).' , value => {
-                if(!value) return false;
-                return nameRegex.test(value) || xssPattern.test(value)
-            })
-            .required('name is Required'),
-            email : yup.string().email('Please enter a valid email')
-            .matches(emailPattern , 'wrong email format')
-            .required('email is Required'),
-            phoneNumber : yup.string()
-            .matches(phoneNumberPattern , 'Please enter a valid phoneNumber')
-            .required('phoneNumber is required !')
-        }),
+        validationSchema : contactEditSchema,
         onSubmit : value => {
             const newContact = {
                 id : Date.now(),
@@ -45,6 +26,7 @@ const Model = () => {
                 selected : false,
             }
             dispatch({ type : "ADD_CONTACT" , payLoad : newContact })
+            formik.resetForm();
         }
     })
     

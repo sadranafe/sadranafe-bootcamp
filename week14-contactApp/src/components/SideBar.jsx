@@ -1,21 +1,34 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { useFormik } from 'formik';
 import ContactAvatar from './contact/ContactAvatar';
 import ErrorMessage from './ErrorMessage';
-import { FormatPhoneNumber, ValidateForm } from '../utils/helper';
 import { ContactAppContext } from './context/ContactAppContext';
+import { contactEditSchema } from '../utils/ContactAppEditSchema';
 
 const SideBar = () => {
     const {state , dispatch} = useContext(ContactAppContext);
     const { isEditing , selectedContact } = state;
 
-    const [editData , setEditData] = useState(selectedContact || {});
-    const [errors , setErrors] = useState({});
-    const { name } = editData;
     const selectedContactIsEmpty = Object.values(selectedContact).length === 0;
 
+    const formik = useFormik({
+        enableReinitialize : true,
+        initialValues : {
+            name: selectedContact?.name || "",
+            email: selectedContact?.email || "",
+            phoneNumber: selectedContact?.phoneNumber || "",
+        },
+        validationSchema : contactEditSchema,
+        onSubmit : val => {
+            dispatch({ type : 'UPDATE_CONTACT',
+                payLoad : { ...selectedContact , ...val }
+            })
+
+            dispatch({ type : 'EDITING_STATUS' , payLoad : false })
+        }
+    })
+
     useEffect(() => {
-        setEditData(selectedContact || {});
-        setErrors({})
         dispatch({ type : 'SET_EDITING' , payLoad : false })
 
         const ESCHandler = ev => {
@@ -26,36 +39,23 @@ const SideBar = () => {
         return () => window.removeEventListener('keydown' , ESCHandler)
     } , [selectedContact])
 
-    const editHandler = ev => {
-        const { name , value } = ev.target;
-        const rawValue = name === 'phoneNumber' ?  value.replace(/\D/g , "") : value;
-        setEditData(prev => {
-            return ({...prev , [name] : rawValue})
-        })
-        if(errors[name]){
-            setErrors(prev => ({ ...prev, [name]: "" }));
-        }
-    }
-
-    const editContactHandler = () => {
-        if(!ValidateForm(editData , setErrors)){
-            dispatch({ type : "TOAST" , payLoad : {isFired : true , type : 'error' , content : 'fields have error'} })
+    const toggleEdit = () => {
+        if(!isEditing) {
+            dispatch({ type : 'EDITING_STATUS' , payLoad : true })
             return;
-        };
+        }
 
-        if(isEditing) dispatch({ type : 'UPDATE_CONTACT' , payLoad : editData });
-
-        dispatch({ type : 'EDITING_STATUS' , payLoad : !isEditing })
-        setErrors({});
+        formik.handleSubmit();
     }
+
     const cancelOrDeleteHandler = () => {
         if(isEditing) {
-            dispatch({ type : 'EDITING_STATUS' , payLoad : false })
-            setEditData(selectedContact)
+            formik.resetForm();
         } else {
-            dispatch({ type : 'DELETE_CONTACT' , payLoad : selectedContact.id })
+            dispatch({ type : 'DELETE_CONTACT', payLoad : selectedContact.id })
         }
     }
+
     return (
         <>
             <div className = {`${selectedContactIsEmpty ? 'invisible w-0 opacity-0' : 'visible w-[30%] opacity-100'} transition-all delay-300 duration-500 h-full border-r border-dashed border-r-gray-300`}>
@@ -63,12 +63,12 @@ const SideBar = () => {
 
                 <div className = 'flex flex-wrap flex-col items-center justify-center gap-4 w-full h-full'>
                     <div className = 'capitalize flex flex-wrap justify-center items-center gap-2'>
-                        <ContactAvatar customClasses = 'w-20 h-20' name = {name} textSize = 'text-5xl'/>
+                        <ContactAvatar customClasses = 'w-20 h-20' name = {formik.values.name} textSize = 'text-5xl'/>
 
                         <div className = 'w-full relative z-1 text-center flex justify-center items-center'>
-                            <input type = "text" name = 'name' id = 'name' value = {editData.name || ''} onChange = {editHandler} disabled = {!isEditing} className = 'w-[62%] capitalize text-center text-lg font-medium border border-white/90 bg-white/20 rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.03)] disabled:shadow-none disabled:bg-transparent disabled:border-transparent caret-sky-500'/>
+                            <input type = "text" name = 'name' id = 'name' {...formik.getFieldProps("name")} disabled = {!isEditing} className = 'w-[62%] capitalize text-center text-lg font-medium border border-white/90 bg-white/20 rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.03)] disabled:shadow-none disabled:bg-transparent disabled:border-transparent caret-sky-500'/>
                             <div>
-                                <ErrorMessage fieldHasError = {errors.name !== '' && errors.name !== undefined} errorMsg = {errors.name}/>
+                                <ErrorMessage fieldHasError = {formik.touched.name && formik.errors.name} errorMsg = {formik.errors.name}/>
                             </div>
                         </div>
                     </div>
@@ -81,8 +81,8 @@ const SideBar = () => {
 
                             <div className = 'flex flex-wrap justify-start items-center'>
                                 <h3 className = "capitalize font-medium w-full mb-1">email</h3>
-                                <input type = "email" name = "email" id = 'email' value = {editData.email || ''} onChange = {editHandler} disabled = {!isEditing} className = "border border-white/90 bg-white/20 rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.03)] disabled:shadow-none disabled:bg-transparent disabled:border-transparent py-1 text-center disabled:text-start text-gray-500 caret-sky-500"/>
-                                <ErrorMessage fieldHasError = {errors.email !== '' && errors.email !== undefined} errorMsg = {errors.email}/>
+                                <input type = "email" name = "email" id = 'email' {...formik.getFieldProps("email")} disabled = {!isEditing} className = "border border-white/90 bg-white/20 rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.03)] disabled:shadow-none disabled:bg-transparent disabled:border-transparent py-1 text-center disabled:text-start text-gray-500 caret-sky-500"/>
+                                <ErrorMessage fieldHasError = {formik.touched.email && formik.errors.email} errorMsg = {formik.errors.email}/>
                             </div>
                         </div>
                         
@@ -93,15 +93,15 @@ const SideBar = () => {
 
                             <div className = 'flex flex-wrap justify-start items-center'>
                                 <h3 className = "capitalize font-medium w-full mb-1">phone</h3>
-                                <input type = "phone" name = "phoneNumber" id = 'phone' value = {FormatPhoneNumber(editData.phoneNumber) || ''} onChange = {editHandler} disabled = {!isEditing} className = "border border-white/90 bg-white/20 rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.03)] disabled:shadow-none disabled:bg-transparent disabled:border-transparent py-1 text-center disabled:text-start text-gray-500 caret-sky-500"/>
-                                <ErrorMessage fieldHasError = {errors.phoneNumber !== '' && errors.phoneNumber !== undefined} errorMsg = {errors.phoneNumber}/>
+                                <input type = "phone" name = "phoneNumber" id = 'phone' {...formik.getFieldProps("phoneNumber")} disabled = {!isEditing} className = "border border-white/90 bg-white/20 rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.03)] disabled:shadow-none disabled:bg-transparent disabled:border-transparent py-1 text-center disabled:text-start text-gray-500 caret-sky-500"/>
+                                <ErrorMessage fieldHasError = {formik.touched.phoneNumber && formik.errors.phoneNumber} errorMsg = {formik.errors.phoneNumber}/>
                             </div>
                         </div>
                     </div>
 
                     
                     <div className = 'flex justify-between items-center'>
-                        <button onClick = {editContactHandler} className = "text-xs cursor-pointer p-2 px-3 m-2 mt-4 rounded-lg flex justify-center items-center border border-sky-500 text-sky-600 gap-2 transition-all hover:bg-sky-500 hover:text-white">
+                        <button type = 'button' onClick = {toggleEdit} className = "text-xs cursor-pointer p-2 px-3 m-2 mt-4 rounded-lg flex justify-center items-center border border-sky-500 text-sky-600 gap-2 transition-all hover:bg-sky-500 hover:text-white">
                             <i className = {`bx ${isEditing ? 'bx-check' : 'bx-pencil'}`}></i>
                             {isEditing ? 'save' : 'edit'}
                         </button>
