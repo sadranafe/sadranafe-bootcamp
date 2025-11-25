@@ -1,21 +1,58 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+
 import ModelInput from "./modelInput";
-import { ValidateForm } from "../utils/helper";
 import { ContactAppContext } from "./context/ContactAppContext";
 
 const Model = () => {
     const {state , dispatch} = useContext(ContactAppContext);
     const { modalIsOpen } = state;
+
+    const nameRegex = /^[A-Za-z\s]{2,30}$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
+    const phoneNumberPattern = /^[0-9]{10,15}$/;
+    const xssPattern = /<script|<\/script|onerror|onload|javascript:/i;
+
+    const formik = useFormik({
+        initialValues : {
+            name : '',
+            email : '',
+            phoneNumber : ''
+        },
+        validationSchema : yup.object({
+            name : yup.string()
+            .min(2 , 'must be 2 characters or more')
+            .max(30 , 'must be 30 character or less')
+            .test('name-valid' , 'Name must contain only letters and spaces (2 - 30 characters).' , value => {
+                if(!value) return false;
+                return nameRegex.test(value) || xssPattern.test(value)
+            })
+            .required('name is Required'),
+            email : yup.string().email('Please enter a valid email')
+            .matches(emailPattern , 'wrong email format')
+            .required('email is Required'),
+            phoneNumber : yup.string()
+            .matches(phoneNumberPattern , 'Please enter a valid phoneNumber')
+            .required('phoneNumber is required !')
+        }),
+        onSubmit : value => {
+            const newContact = {
+                id : Date.now(),
+                name : value.name,
+                email : value.email,
+                phoneNumber : value.phoneNumber,
+                selected : false,
+            }
+            dispatch({ type : "ADD_CONTACT" , payLoad : newContact })
+        }
+    })
     
     const inputs = [
         { type: 'text', labelName: 'name', icon: 'user' },
         { type: 'email', labelName: 'email', icon: 'envelope' },
         { type: 'number', labelName: 'phoneNumber', icon: 'phone' },
     ]
-
-    const [modelForm , setModelForm] = useState({ name: '', email: '', phoneNumber: '' });
-    const [errors , setErrors] = useState({});
-    const formIsEmpty = !modelForm.name || !modelForm.email || !modelForm.phoneNumber;
 
     useEffect(() => {
         const ESCHandler = ev => {
@@ -28,33 +65,8 @@ const Model = () => {
         return () => window.removeEventListener('keydown' , ESCHandler)
     },[modalIsOpen])
 
-
-    const formHandler = ev => {
-        const {name , value} = ev.target;
-        setModelForm(prev => ({ ...prev , [name] : value.trimStart() }));
-        if(errors[name]) setErrors(prev => ({ ...prev , [name] : '' }));
-    }
-
-    const submitFormHandler = () => {
-        const newContact = {
-            id : Date.now(),
-            name : modelForm.name,
-            email : modelForm.email,
-            phoneNumber : modelForm.phoneNumber,
-            selected : false,
-        }
-
-        if(!ValidateForm(modelForm , setErrors)) return;
-        
-        dispatch({ type : "ADD_CONTACT" , payLoad : newContact })
-
-        setModelForm({ name: '', email: '', phoneNumber: '' });
-        setErrors({});
-    }
-
     const closeModelHandler = () => {
         dispatch({ type : 'MODAL_STATUS' , payLoad : false })
-        setErrors({});
     }
 
     return (
@@ -76,7 +88,7 @@ const Model = () => {
                         {
                             inputs.map((input , index) => {
                                 return (
-                                    <ModelInput key = {index} value = {modelForm} onChange = {formHandler} error = {errors[input.labelName]} fieldHasError = {errors[input.labelName] !== '' && errors[input.labelName] !== undefined} labelName = {input.labelName} labelIcon = {input.icon} inputType = {input.type}/>
+                                    <ModelInput key = {index} formik = {formik} error = {formik.errors[input.labelName]} fieldHasError = {formik.errors[input.labelName] && formik.touched[input.labelName]} labelName = {input.labelName} labelIcon = {input.icon} inputType = {input.type}/>
                                 )
                             })
                         }
@@ -84,7 +96,7 @@ const Model = () => {
                     
                     <div className = "flex justify-evenly items-center">
                         <button onClick = {closeModelHandler} className = "capitalize px-4 p-2 rounded-lg cursor-pointer border border-transparent hover:border-red-400 hover:text-red-500 transition">cancel</button>
-                        <button onClick = {submitFormHandler} disabled = {formIsEmpty || Object.values(errors).some(err => err)} className = "disabled:bg-sky-400/70 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer capitalize px-4 p-2 rounded-lg bg-sky-500 text-white hover:bg-sky-600 shadow-md transition">create contact</button>
+                        <button type = "submit" onClick = {formik.handleSubmit} className = "disabled:bg-sky-400/70 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer capitalize px-4 p-2 rounded-lg bg-sky-500 text-white hover:bg-sky-600 shadow-md transition">create contact</button>
                     </div>
                 </div>
             </div>
