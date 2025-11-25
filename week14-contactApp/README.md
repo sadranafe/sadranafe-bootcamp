@@ -27,6 +27,13 @@ All global state and related logic were centralized using Context API and useRed
 - A clean initialState + structured action types
 - Clear separation between logic and UI
 
+### Version 2.1.0 — Form validation Refactor (current version)
+This update focuses on fully upgrading and restructuring the form validation system:
+- Change manual validation to formik + yup
+- Improve form handling flow
+- Enhance resuability accross from components
+- More accurate and stable error handling and input state management
+
 ## 🧠 Project Structure
 ```
 src
@@ -58,7 +65,7 @@ src
 │ └── Toast.jsx
 │
 ├── utils
-│ └── helper.js
+│ └── contactAppEditSchema.js
 │
 ├── App.jsx
 ├── index.css
