@@ -5,7 +5,8 @@ A modern and minimal **Contact App** built with **React** and **TailwindCSS** to
 ## 🚀 Features
 
 - ⚡ **Vite + React** setup for ultra-fast development  
-- 🎨 **TailwindCSS v4.1** for utility-first styling  
+- 🎨 **TailwindCSS v4.1** for utility-first styling
+- 📋 **Formik + Yup** for handle the forms of the project
 - ➕ **Add new contacts**
 - ✏️ **Edit existing contacts**
 - 🗑️ **Delete contacts**
