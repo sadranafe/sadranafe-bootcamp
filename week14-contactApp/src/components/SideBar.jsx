@@ -59,15 +59,15 @@ const SideBar = () => {
     return (
         <>
             <div className = {`${selectedContactIsEmpty ? 'invisible w-0 opacity-0' : 'visible w-[30%] opacity-100'} transition-all delay-300 duration-500 h-full border-r border-dashed border-r-gray-300`}>
-                <h1 className = 'capitalize text-xl font-semibold text-center'>contacts's info</h1>
+                <h1 className = 'capitalize text-xl font-semibold text-center'>contact's info</h1>
 
-                <div className = 'flex flex-wrap flex-col items-center justify-center gap-4 w-full h-full'>
+                <div className = 'flex flex-wrap items-center justify-center w-full h-full'>
                     <div className = 'capitalize flex flex-wrap justify-center items-center gap-2'>
                         <ContactAvatar customClasses = 'w-20 h-20' name = {formik.values.name} textSize = 'text-5xl'/>
 
                         <div className = 'w-full relative z-1 text-center flex justify-center items-center'>
                             <input type = "text" name = 'name' id = 'name' {...formik.getFieldProps("name")} disabled = {!isEditing} className = 'w-[62%] capitalize text-center text-lg font-medium border border-white/90 bg-white/20 rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.03)] disabled:shadow-none disabled:bg-transparent disabled:border-transparent caret-sky-500'/>
-                            <div>
+                            <div className = 'absolute right-6'>
                                 <ErrorMessage fieldHasError = {formik.touched.name && formik.errors.name} errorMsg = {formik.errors.name}/>
                             </div>
                         </div>
