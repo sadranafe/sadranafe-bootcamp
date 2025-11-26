@@ -72,7 +72,7 @@ const ContactReducer = (state , action) => {
                 toast : {
                     isFired : true,
                     type : 'info',
-                    content : 'user deleted'
+                    content : 'Contact deleted'
                 }
             }
         };
