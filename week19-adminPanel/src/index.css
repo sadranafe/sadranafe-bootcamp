@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+@font-face {
+    font-family: 'yekanBakh';
+    src: url(/public/YekanBakh-Regular.ttf);
+}
+
+body {
+    font-family: 'yekanBakh';
+    font-weight: 400;
+    font-size: 14px;
+    user-select: none;
+}
+
+.comfortaaFont{
+    font-family: "Comfortaa" , sans-serif;
+}
+
+.deliusFont {
+    font-family: "Delius Swash Caps" , cursive;
+}
