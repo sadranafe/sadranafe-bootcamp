@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const authFormSchema = (hasRepeatedPassword = false) => {
-    yup.object({
+    return yup.object({
         userName : yup.string()
         .min(3 , 'Must be at least 3 characters or more')
         .max(15 , 'Must be 15 characters or less')
