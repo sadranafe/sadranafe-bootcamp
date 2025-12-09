@@ -3,6 +3,7 @@ import Form from "../../components/Form";
 import { useFormik } from "formik";
 import { authFormSchema } from "../../utils/authFormSchema";
 import axios from "axios";
+import getHttpErrorMessage from "../../utils/httpErrorCodes";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -24,23 +25,13 @@ const Login = () => {
                 navigate('/dashboard')
             })
             .catch(err => {
-                const status = err.response.status;
-                switch(status) {
-                    case 400 : {
-                        console.error('invalid credentials')
-                        break;
-                    }
+                const status = err?.response?.status;
+                const message = getHttpErrorMessage(status,{
+                    400 : 'invalid credentials',
+                    401 : 'wrong username or password'
+                })
 
-                    case 401 : {
-                        console.log('Wrong username or password')
-                        break;
-                    }
-
-                    case 500 : {
-                        console.error('server errors')
-                        break;
-                    }
-                }
+                alert(message);
             })
         }
     })

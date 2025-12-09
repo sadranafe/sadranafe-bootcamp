@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as yup from 'yup';
 import Form from "../../components/Form";
 import { authFormSchema } from "../../utils/authFormSchema";
+import getHttpErrorMessage from "../../utils/httpErrorCodes";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -27,28 +28,11 @@ const Register = () => {
                 }
             })
             .catch(err => {
-                if(!err.response) {
-                    console.error(err)
-                    return;
-                }
-                const status = err.response.status;
-
-                switch(status){
-                    case 400 : {
-                        console.error('user already exists');
-                        break;
-                    };
-                    case 401 : {
-                        console.error('Unauthorized: invalid credentials');
-                        break;
-                    };
-                    case 404 : {
-                        console.error('Not found.')
-                    };
-                    case 500 : {
-                        console.error('server errors');
-                    }
-                }
+                const status = err?.response?.status;
+                const message = getHttpErrorMessage(status , {
+                    400 : 'user already exists.'
+                })
+                alert(message);
             })
         }
     })
