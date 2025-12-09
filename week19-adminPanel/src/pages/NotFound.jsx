@@ -11,9 +11,9 @@ const NotFound = () => {
             <img src = "/notFoundImg.png" alt = "not found" className = "w-lg"/>
 
             <div className = "w-full">
-                <Link to = '/' className = "mx-auto w-fit deliusFont text-[15px] flex flex-wrap justify-center items-center hover:bg-blue-200 hover:border-blue-200 pr-3 border border-blue-400 p-1 rounded-lg transition-all">
+                <Link to = '/' className = "mx-auto w-fit text-[15px] flex flex-wrap justify-center items-center hover:bg-blue-200 hover:border-blue-200 pr-3 border border-blue-400 p-1 rounded-lg transition-all">
+                    برگشت
                     <i className = 'bx bx-chevron-left'></i>
-                    back
                 </Link>
             </div>
         </div>
