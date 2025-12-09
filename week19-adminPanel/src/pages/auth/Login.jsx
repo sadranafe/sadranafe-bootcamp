@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Form from "../../components/Form";
 import { useFormik } from "formik";
-import { authFormSchema } from "../../utils/authFormSchema";
 import axios from "axios";
+import Form from "../../components/Form";
+import { authFormSchema } from "../../utils/authFormSchema";
 import getHttpErrorMessage from "../../utils/httpErrorCodes";
 import AuthInput from "../../components/AuthInput";
 
 const Login = () => {
     const navigate = useNavigate();
+    const [httpError , setHttpError] = useState('');
+
     const formik = useFormik({
         initialValues : {
             userName : '',
@@ -30,8 +33,7 @@ const Login = () => {
                     400 : 'invalid credentials',
                     401 : 'wrong username or password'
                 })
-
-                alert(message);
+                setHttpError(message)
             })
         }
     })

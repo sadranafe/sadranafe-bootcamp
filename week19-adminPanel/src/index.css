@@ -5,6 +5,10 @@
     src: url(/public/YekanBakh-Regular.ttf);
 }
 
+* {
+    outline: none;
+}
+
 body {
     font-family: 'yekanBakh';
     font-weight: 400;

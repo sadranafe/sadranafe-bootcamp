@@ -6,9 +6,11 @@ import Form from "../../components/Form";
 import { authFormSchema } from "../../utils/authFormSchema";
 import getHttpErrorMessage from "../../utils/httpErrorCodes";
 import AuthInput from "../../components/AuthInput";
+import { useState } from "react";
 
 const Register = () => {
     const navigate = useNavigate();
+    const [httpError , setHttpError] = useState('');
 
     const formik = useFormik({
         initialValues : {
@@ -33,7 +35,7 @@ const Register = () => {
                 const message = getHttpErrorMessage(status , {
                     400 : 'user already exists.'
                 })
-                alert(message);
+                setHttpError(message)
             })
         }
     })
