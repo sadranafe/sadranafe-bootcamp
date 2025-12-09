@@ -15,7 +15,6 @@ const AuthProvider = ({ children }) => {
         setToken(null);
     }
 
-
     return (
         <authContext.Provider value = {{ token , login , logout }}>
             { children }

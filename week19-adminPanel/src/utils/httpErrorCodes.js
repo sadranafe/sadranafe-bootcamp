@@ -8,7 +8,7 @@ const getHttpErrorMessage = (statusCode , customMessage = {}) => {
     }
 
     const merged = { ...defaultHttpErrorMessage , ...customMessage };
-    return merged[statusCode] || 'something went wrong !'
+    return merged[statusCode] || 'خطای ناشناخته ای رخ داده !'
 }
 
 export default getHttpErrorMessage;
