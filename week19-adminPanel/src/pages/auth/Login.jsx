@@ -6,8 +6,10 @@ import Form from "../../components/Form";
 import { authFormSchema } from "../../utils/authFormSchema";
 import getHttpErrorMessage from "../../utils/httpErrorCodes";
 import AuthInput from "../../components/AuthInput";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const formik = useFormik({
@@ -22,9 +24,10 @@ const Login = () => {
                 'password' : JSON.stringify(val.password)
             })
             .then(res => {
-                localStorage.setItem('token' , res.data.token)
+                login(res.data.token)
                 navigate('/dashboard')
             })
+            .finally(console.log(token))
             .catch(err => {
                 const status = err?.response?.status;
                 const message = getHttpErrorMessage(status,{
@@ -55,7 +58,7 @@ const Login = () => {
                 </div>
 
                 <div className = "w-full flex flex-wrap justify-center items-center gap-4">
-                    <button type = "submit" onClick = { formik.handleSubmit } className = "cursor-pointer text-white bg-blue-500 rounded-lg py-2.5 w-10/12">ورود</button>
+                    <button type = "submit" onClick = { formik.handleSubmit } className = "cursor-pointer text-white bg-cyan-500 hover:bg-blue-900 transition-all rounded-lg py-2.5 w-10/12">ورود</button>
                     <Link to = '/auth/register' className = "text-blue-500 text-xs transition-all border-b border-transparent hover:border-b-blue-400">ایجاد حساب کاربری !</Link>
                 </div>
             </Form>

@@ -6,7 +6,6 @@ import Form from "../../components/Form";
 import { authFormSchema } from "../../utils/authFormSchema";
 import getHttpErrorMessage from "../../utils/httpErrorCodes";
 import AuthInput from "../../components/AuthInput";
-import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
@@ -24,7 +23,6 @@ const Register = () => {
                 password : JSON.stringify(val.password),
             })
             .then((res) => {
-                console.log(res)
                 if(res.statusText === "Created" && res.status === 201){
                     navigate('/auth/login' , { replace : true })
                 }
@@ -59,7 +57,7 @@ const Register = () => {
                 </div>
 
                 <div className = "w-full flex flex-wrap justify-center items-center gap-4">
-                    <button type = "submit" onClick = {formik.handleSubmit} className = "cursor-pointer text-white bg-blue-500 rounded-lg py-2 w-10/12">ثبت نام</button>
+                    <button type = "submit" onClick = {formik.handleSubmit} className = "cursor-pointer text-white bg-cyan-500 hover:bg-blue-900 transition-all rounded-lg py-2 w-10/12">ثبت نام</button>
                     <Link to = '/auth/login' className = "text-blue-500 text-xs transition-all border-b border-transparent hover:border-b-blue-400">حساب کاربری دارید؟</Link>
                 </div>
             </Form>
