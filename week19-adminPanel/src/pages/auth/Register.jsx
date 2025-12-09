@@ -7,11 +7,10 @@ import { authFormSchema } from "../../utils/authFormSchema";
 import getHttpErrorMessage from "../../utils/httpErrorCodes";
 import AuthInput from "../../components/AuthInput";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
     const navigate = useNavigate();
-    const [httpError , setHttpError] = useState('');
-
     const formik = useFormik({
         initialValues : {
             userName : '',
@@ -33,9 +32,9 @@ const Register = () => {
             .catch(err => {
                 const status = err?.response?.status;
                 const message = getHttpErrorMessage(status , {
-                    400 : 'user already exists.'
+                    400 : 'این نام کاربری قبلا ساخته شده'
                 })
-                setHttpError(message)
+                toast.error(message)
             })
         }
     })
@@ -47,22 +46,26 @@ const Register = () => {
     ]
 
     return (
-        <Form titleForm = 'فرم ثبت نام'>
-            <div className = "w-full flex flex-col flex-wrap justify-center items-center content-center gap-3">
-                {
-                    inputs.map((input , index) => {
-                        return(
-                            <AuthInput key = {index} formik = {formik} labelName = {input.labelName} error = {formik.errors[input.labelName]} fieldHasError = {formik.errors[input.labelName] && formik.touched[input.labelName]} icon = {input.icon} inputType = {input.type} placeholder = {input.placeholder}/>
-                        )
-                    })
-                }
-            </div>
+        <>
+            <Form titleForm = 'فرم ثبت نام'>
+                <div className = "w-full flex flex-col flex-wrap justify-center items-center content-center gap-3">
+                    {
+                        inputs.map((input , index) => {
+                            return(
+                                <AuthInput key = {index} formik = {formik} labelName = {input.labelName} error = {formik.errors[input.labelName]} fieldHasError = {formik.errors[input.labelName] && formik.touched[input.labelName]} icon = {input.icon} inputType = {input.type} placeholder = {input.placeholder}/>
+                            )
+                        })
+                    }
+                </div>
 
-            <div className = "w-full flex flex-wrap justify-center items-center gap-4">
-                <button type = "submit" onClick = {formik.handleSubmit} className = "cursor-pointer text-white bg-blue-500 rounded-lg py-2 w-10/12">ثبت نام</button>
-                <Link to = '/auth/login' className = "text-blue-500 text-xs transition-all border-b border-transparent hover:border-b-blue-400">حساب کاربری دارید؟</Link>
-            </div>
-        </Form>
+                <div className = "w-full flex flex-wrap justify-center items-center gap-4">
+                    <button type = "submit" onClick = {formik.handleSubmit} className = "cursor-pointer text-white bg-blue-500 rounded-lg py-2 w-10/12">ثبت نام</button>
+                    <Link to = '/auth/login' className = "text-blue-500 text-xs transition-all border-b border-transparent hover:border-b-blue-400">حساب کاربری دارید؟</Link>
+                </div>
+            </Form>
+
+            <Toaster position = "top-left"/>
+        </>
     );
 };
 

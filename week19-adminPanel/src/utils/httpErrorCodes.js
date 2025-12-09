@@ -1,10 +1,10 @@
 const getHttpErrorMessage = (statusCode , customMessage = {}) => {
     const defaultHttpErrorMessage = {
-        400 : 'bad request.',
-        401 : 'Unauthorized: invalid credentials.',
-        403 : 'sorry, you don\'t have permission.',
-        404 : 'resource not found.',
-        500 : "server error."
+        400 : 'درخواست نامعتبر هست',
+        401 : 'دسترسی غیرمجاز: اطلاعات وارد شده صحیح نیست',
+        403 : 'متاسفیم، شما اجازه دسترسی به این بخش رو ندارید',
+        404 : 'منبع موردنظر پیدا نشد',
+        500 : "خطای داخلی سرور"
     }
 
     const merged = { ...defaultHttpErrorMessage , ...customMessage };
