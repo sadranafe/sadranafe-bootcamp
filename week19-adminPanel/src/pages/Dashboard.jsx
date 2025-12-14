@@ -5,7 +5,7 @@ import ProductsPagination from "../components/dashboard/ProductsPagination";
 const Dashboard = () => {
     return (
         <>
-            <div className = "w-9/12 mx-auto my-5 bg-red-50">
+            <div className = "w-9/12 mx-auto my-5">
                 <Navbar/>
 
                 <Layout/>
