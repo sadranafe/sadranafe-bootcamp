@@ -1,4 +1,4 @@
-const ProductsHeader = () => {
+const ProductsHeader = ({ openModal }) => {
     return (
         <>
             <div className = "flex justify-between items-center">
@@ -8,7 +8,7 @@ const ProductsHeader = () => {
                 </div>
 
                 <div>
-                    <button className = "bg-sky-500 rounded-lg p-1.5 px-3 text-white cursor-pointer hover:bg-sky-900 transition-all">افزودن محصول</button>
+                    <button onClick = {() => openModal('ADD_PRODUCT')} className = "bg-sky-500 rounded-lg p-1.5 px-3 text-white cursor-pointer hover:bg-sky-900 transition-all">افزودن محصول</button>
                 </div>
             </div>
         </>

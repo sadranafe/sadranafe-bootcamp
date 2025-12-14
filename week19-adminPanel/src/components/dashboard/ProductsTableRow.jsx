@@ -1,6 +1,4 @@
-import React from 'react';
-
-const ProductsTableRow = () => {
+const ProductsTableRow = ({ openModal }) => {
     return (
         <>
             <div className = 'grid grid-cols-[2fr_1fr_1fr_2fr_1fr] text-center px-6 p-4 border-t border-neutral-200 hover:bg-white/50 transition'>
@@ -21,11 +19,11 @@ const ProductsTableRow = () => {
                 </div>
                 
                 <div>
-                    <button className = 'cursor-pointer bg-r ed-100 ml-4'>
+                    <button onClick = {() => openModal('EDIT_PRODUCT')} className = 'cursor-pointer bg-r ed-100 ml-4'>
                         <i className = "ph-light ph-note-pencil text-xl"></i>
                     </button>
                     
-                    <button className = 'cursor-pointer bg-bl ue-100'>
+                    <button onClick = {() => openModal('DELETE_PRODUCT')} className = 'cursor-pointer bg-bl ue-100'>
                         <i className = "ph-light ph-trash-simple text-xl text-red-500"></i>
                     </button>
                 </div>

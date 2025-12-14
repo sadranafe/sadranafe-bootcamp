@@ -1,6 +1,6 @@
 import ProductsTableRow from './ProductsTableRow';
 
-const ProductsTable = () => {
+const ProductsTable = ({ openModal }) => {
     const productsArr = Array.from({ length : 6 });
     return (
         <div className = 'w-full overflow-hidden rounded-xl mt-5 border border-white bg-white/25 shadow-[0_3px_10px_rgba(0,0,0,0.05)] backdrop-blur-xl'>
@@ -15,7 +15,7 @@ const ProductsTable = () => {
             {
                 productsArr.map((tableRow , index) => {
                     return(
-                        <ProductsTableRow key = {index}/>
+                        <ProductsTableRow key = {index} openModal = {openModal}/>
                     )
                 })
             }
