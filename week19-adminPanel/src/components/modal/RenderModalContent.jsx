@@ -1,15 +1,14 @@
-import AddProductModal from "./AddProductModal";
+import ProductModalForm from "./ProductModalForm";
 import DeleteProductModal from "./DeleteProductModal";
-import EditProductModal from "./EditProductModal";
 
 const RenderModalContent = (modal , onClose) => {
     switch(modal.type){
         case 'ADD_PRODUCT' : {
-            return <AddProductModal onClose = {onClose}/>
+            return <ProductModalForm onClose = {onClose} BtnContent = 'ایجاد'/>
         }
 
         case 'EDIT_PRODUCT' : {
-            return <EditProductModal onClose = {onClose} product = {modal.data}/>
+            return <ProductModalForm onClose = {onClose} product = {modal.data} BtnContent = 'ثبت اطلاعات جدید' />
         }
 
         case 'DELETE_PRODUCT' :{

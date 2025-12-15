@@ -1,7 +1,7 @@
-const EditProductModal = ({ onClose }) => {
+const ProductModalForm = ({ onClose , BtnOnClick , BtnContent }) => {
     return (
         <>
-            <h2 className = 'font-semibold text-lg'>ویرایش اطلاعات</h2>
+            <h2 className = 'font-semibold text-lg'>ایجاد محصول جدید</h2>
             <div className = 'w-full text-center'>
                 <div className = 'text-start my-5'>
                     <label htmlFor = "productName">نام کالا</label>
@@ -19,7 +19,7 @@ const EditProductModal = ({ onClose }) => {
                 </div>
                 
                 <div>
-                    <button className = 'bg-blue-500 hover:bg-blue-600 transition-all text-white p-1.5 px-5 rounded-lg ml-2 cursor-pointer'>ثبت اطلاعات جدید</button>
+                    <button onClick = {BtnOnClick} className = 'bg-blue-500 hover:bg-blue-600 transition-all text-white p-1.5 px-10 rounded-lg ml-2 cursor-pointer'>{BtnContent}</button>
                     <button onClick = {onClose} className = 'bg-neutral-400/65 hover:bg-neutral-400 transition-all p-1.5 px-10 rounded-lg cursor-pointer'>انصراف</button>
                 </div>
             </div>
@@ -27,4 +27,4 @@ const EditProductModal = ({ onClose }) => {
     );
 };
 
-export default EditProductModal;
+export default ProductModalForm;
