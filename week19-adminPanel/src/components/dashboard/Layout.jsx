@@ -1,15 +1,9 @@
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import Modal from "../modal/Modal";
 import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./ProductsTable";
 import RenderModalContent from "../modal/RenderModalContent";
-
-const MODAL_TYPES = {
-    ADD : 'ADD_PRODUCT',
-    EDIT : 'EDIT_PRODUCT',
-    DELETE : 'DELETE_PRODUCT',
-    GROUP_DELETE : 'GROUP_DELETE_PRODUCTS',
-}
 
 const Layout = () => {
     const [modal , setModal] = useState({ type : null , data : null })
@@ -30,6 +24,8 @@ const Layout = () => {
             <Modal isOpen = {!!modal.type} onClose = {closeModalHandler}>
                 { RenderModalContent(modal , closeModalHandler) }
             </Modal>
+
+            <Toaster position = "top-left"/>
         </div>
     );
 };
