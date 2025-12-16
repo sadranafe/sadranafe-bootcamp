@@ -6,7 +6,7 @@ const ProductsPagination = ({ page , setPage , totalPages }) => {
             </button>
 
             <div className = "flex justify-center items-center gap-1.5">
-                صفحه <p className = "border border-gray-400 h-8 px-2 pt-1 rounded-lg text-lg">{page}</p> از  <button className = "cursor-pointer text-lg h-8 px-2 pt-1 rounded-lg">{totalPages}</button>
+                صفحه <p className = "border border-gray-400 h-8 px-2 pt-1 rounded-lg text-lg">{page}</p> از  <button onClick = {() => setPage(totalPages)} className = "cursor-pointer text-lg h-8 px-2 pt-1 rounded-lg">{totalPages}</button>
             </div>
 
             <button onClick = {() => setPage(prev => prev + 1)} className = "flex justify-center items-center cursor-pointer p-2 disabled:text-neutral-400 disabled:cursor-default" disabled = {page === totalPages}>
