@@ -1,7 +1,6 @@
 import { Link , useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from "formik";
-import * as yup from 'yup';
 import Form from "../../components/Form";
 import { authFormSchema } from "../../utils/authFormSchema";
 import getHttpErrorMessage from "../../utils/httpErrorCodes";

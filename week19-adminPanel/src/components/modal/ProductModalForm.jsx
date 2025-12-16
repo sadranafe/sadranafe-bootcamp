@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useFormik } from "formik";
-import toast , { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import InputModal from "./InputModal";
 import modalFormSchema from "../../utils/modalFormSchema";
 import getHttpErrorMessage from "../../utils/httpErrorCodes";
@@ -16,7 +16,7 @@ const mutationFn = data => {
 }
 
 const ProductModalForm = ({ onClose , action , BtnContent }) => {
-    const { mutate , isPending , isError , error } = useMutation({ mutationFn });
+    const { mutate , isPending } = useMutation({ mutationFn });
 
     const formik = useFormik({
         initialValues : {
@@ -76,7 +76,7 @@ const ProductModalForm = ({ onClose , action , BtnContent }) => {
                 }
                 
                 <div className = "w-full text-center">
-                    <button type = "submit" onClick = {formik.handleSubmit} className = 'bg-blue-500 hover:bg-blue-600 transition-all text-white p-2 px-10 rounded-lg ml-2 cursor-pointer'>{BtnContent}</button>
+                    <button type = "submit" onClick = {formik.handleSubmit} className = 'bg-blue-500 hover:bg-blue-600 transition-all text-white p-2 px-10 rounded-lg ml-2 cursor-pointer'>{ isPending ? 'صبر کنید'  : BtnContent}</button>
                     <button onClick = {onClose} className = 'bg-neutral-400/65 hover:bg-neutral-400 transition-all p-2 px-10 rounded-lg cursor-pointer'>انصراف</button>
                 </div>
             </div>
