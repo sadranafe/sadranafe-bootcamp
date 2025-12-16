@@ -60,7 +60,7 @@ const ProductModalForm = ({ onClose , action , BtnContent }) => {
     const inputs = [
         { type : 'text' , name : 'productName' , placeholder : 'نام کالا' },
         { type : 'number' , name : 'inventory' , placeholder : 'موجودی کالا' },
-        { type : 'number' , name : 'price' , placeholder : 'قیمت کالا' },
+        { type : 'number' , name : 'price' , placeholder : 'قیمت کالا (به تومان)' },
     ]
 
     return (
