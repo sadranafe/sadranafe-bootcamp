@@ -1,21 +1,22 @@
-const ProductsTableRow = ({ openModal }) => {
+const ProductsTableRow = ({ tableRow , openModal }) => {
+    const { id , name , price , quantity } = tableRow;
     return (
         <>
             <div className = 'grid grid-cols-[2fr_1fr_1fr_2fr_1fr] text-center px-6 p-4 border-t border-neutral-200 hover:bg-white/50 transition'>
                 <div>
-                    <p>تیشرت طرح انگولار</p>
+                    <p>{name}</p>
                 </div>
 
                 <div>
-                    <p>293</p>
+                    <p>{quantity}</p>
                 </div>
                 
                 <div>
-                    <p>90 هزار تومان</p>
+                    <p>{price} هزار تومان</p>
                 </div>
                 
                 <div>
-                    <p>90uf9g9h7895467g974</p>
+                    <p>{id}</p>
                 </div>
                 
                 <div>
