@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
@@ -16,6 +16,8 @@ const mutationFn = data => {
 }
 
 const ProductModalForm = ({ onClose , action , BtnContent }) => {
+    const queryClient = useQueryClient();
+
     const { mutate , isPending } = useMutation({ mutationFn });
 
     const formik = useFormik({
@@ -35,8 +37,8 @@ const ProductModalForm = ({ onClose , action , BtnContent }) => {
             switch(action){
                 case 'add_product' : {
                     mutate(data , {
-                        onSuccess : res => {
-                            console.log(res.data)
+                        onSuccess : () => {
+                            queryClient.invalidateQueries(['products'])
                             toast.success('محصول جدید با موفقیت اضافه شد')
                         },
                         onError : err => {

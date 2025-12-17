@@ -24,7 +24,7 @@ const ProductsTableRow = ({ tableRow , openModal }) => {
                         <i className = "ph-light ph-note-pencil text-xl"></i>
                     </button>
                     
-                    <button onClick = {() => openModal('DELETE_PRODUCT')} className = 'cursor-pointer'>
+                    <button onClick = {() => openModal('DELETE_PRODUCT' , id)} className = 'cursor-pointer'>
                         <i className = "ph-light ph-trash-simple text-xl text-red-500"></i>
                     </button>
                 </div>
