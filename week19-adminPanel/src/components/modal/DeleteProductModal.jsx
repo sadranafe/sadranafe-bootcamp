@@ -16,9 +16,24 @@ const DeleteProductModal = ({ onClose , productId }) => {
     const { mutate, isPending } = useMutation({
         mutationFn,
         onSuccess : () => {
-            onClose()
-            queryClient.invalidateQueries(['products']);
             toast.success('محصول موردنظر حذف شد')
+            queryClient.setQueryData(['products'],oldData => {
+                if(!oldData) return oldData;
+
+                const updatedData = {
+                    ...oldData ,
+                    data : oldData.data.filter(product => product.id !== productId),
+                    total: oldData.total - 1
+                }
+                return updatedData;
+            })
+
+            queryClient.invalidateQueries({
+                queryKey : ['products'],
+                refetchType : 'active'
+            })
+            
+            onClose()            
         },
         onError : err => {
             const status = err?.status

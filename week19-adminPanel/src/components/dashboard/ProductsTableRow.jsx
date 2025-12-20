@@ -12,7 +12,7 @@ const ProductsTableRow = ({ tableRow , openModal }) => {
                 </div>
                 
                 <div>
-                    <p>{price} هزار تومان</p>
+                    <p>{price}تومان </p>
                 </div>
                 
                 <div>

@@ -8,7 +8,7 @@ import ProductsPagination from "../components/dashboard/ProductsPagination";
 const Dashboard = () => {
     const [page , setPage] = useState(1)
     const limit = 6;
-    const queryKey = ['products' , page];
+    const queryKey = ['products'];
     const queryFn = () => {
         return axios.get(`http://localhost:3000/products?page=${page}&limit=${limit}`).then(res => { 
             return res.data
