@@ -21,7 +21,7 @@ const Dashboard = () => {
             <div className = "w-9/12 mx-auto my-5">
                 <Navbar/>
 
-                <Layout productsData = {data} productIsPending = {isPending} page = {page}/>
+                <Layout productsData = {data} productIsPending = {isPending} page = {page} setPage = {setPage}/>
                 <ProductsPagination totalPages = {data?.totalPages} page = {page} setPage = {setPage} />
             </div>
         </>

@@ -12,7 +12,7 @@ const RenderModalContent = (modal , onClose) => {
         }
 
         case 'DELETE_PRODUCT' :{
-            return <DeleteProductModal onClose = {onClose} productId = {modal.data.id} page = {modal.data.page}/>
+            return <DeleteProductModal onClose = {onClose} productId = {modal.data.id} page = {modal.data.page} setPage = {modal.data.setPage}/>
         }
 
         default : return null;

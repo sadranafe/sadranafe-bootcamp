@@ -5,7 +5,7 @@ import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./ProductsTable";
 import RenderModalContent from "../modal/RenderModalContent";
 
-const Layout = ({ productsData , productIsPending , page }) => {
+const Layout = ({ productsData , productIsPending , page , setPage }) => {
     const [modal , setModal] = useState({ type : null , data : null })
 
     const openModalHandler = (type, data = null) => {
@@ -19,7 +19,7 @@ const Layout = ({ productsData , productIsPending , page }) => {
     return (
         <div className = "my-7">
             <ProductsHeader openModal = {openModalHandler}/>
-            <ProductsTable productsData = {productsData} productIsPending = {productIsPending} openModal = {openModalHandler} page = {page}/>
+            <ProductsTable productsData = {productsData} productIsPending = {productIsPending} openModal = {openModalHandler} page = {page} setPage = {setPage}/>
 
             <Modal isOpen = {!!modal.type} onClose = {closeModalHandler}>
                 { RenderModalContent(modal , closeModalHandler) }
