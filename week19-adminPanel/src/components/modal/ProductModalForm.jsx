@@ -22,10 +22,10 @@ const ProductModalForm = ({ onClose , action , BtnContent , product , page }) =>
             queryClient.invalidateQueries(['products' , page])
             toast.success('محصول جدید با موفقیت اضافه شد')
         },
-        onError : () => {
+        onError : err => {
             const status = err?.status
             const message = getHttpErrorMessage(status , {
-                401 : 'دسترسی غیرمجاز : لطفا دوباره وارد حساب کاربری خود شوید'
+                401 : 'دسترسی غیرمجاز : لطفا دوباره وارد حساب کاربری خود شوید',
             })
             toast.error(message)
         }
@@ -44,7 +44,7 @@ const ProductModalForm = ({ onClose , action , BtnContent , product , page }) =>
             toast.success('محصول موردنظر با موفقیت ویرایش شد')
             onClose();
         },
-        onError : () => {
+        onError : err => {
             const status = err?.status;
             const message = getHttpErrorMessage(status , {
                 401: 'خطای دسترسی:لطفا دوباره وارد شوید',
