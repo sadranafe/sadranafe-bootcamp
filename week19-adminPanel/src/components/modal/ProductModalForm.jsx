@@ -7,26 +7,63 @@ import modalFormSchema from "../../utils/modalFormSchema";
 import getHttpErrorMessage from "../../utils/httpErrorCodes";
 
 const token = localStorage.getItem('token')
-const mutationFn = data => {
-    return axios.post('http://localhost:3000/products' , data , {
-        headers : {
-            Authorization : `Bearer ${token}`
+
+const ProductModalForm = ({ onClose , action , BtnContent , product }) => {
+    const queryClient = useQueryClient();
+    const addProductMutation = useMutation({
+        mutationFn :  data => {
+            return axios.post('http://localhost:3000/products' , data , {
+                headers : {
+                    Authorization : `Bearer ${token}`
+                }
+            })
+        },
+        onSuccess : () => {
+            queryClient.invalidateQueries(['products'])
+            toast.success('محصول جدید با موفقیت اضافه شد')
+        },
+        onError : () => {
+            const status = err?.status
+            const message = getHttpErrorMessage(status , {
+                401 : 'دسترسی غیرمجاز : لطفا دوباره وارد حساب کاربری خود شوید'
+            })
+            toast.error(message)
         }
     })
-}
+    
+    const editProductMutation = useMutation({
+        mutationFn : data => {
+            return axios.put(`http://localhost:3000/products/${product.id}`,data, {
+                headers : {
+                    Authorization : `Bearer ${token}`
+                }
+            })
+        },
+        onSuccess : () => {
+            queryClient.invalidateQueries(['products']);
+            toast.success('محصول موردنظر با موفقیت ویرایش شد')
+            onClose();
+        },
+        onError : () => {
+            const status = err?.status;
+            const message = getHttpErrorMessage(status , {
+                401: 'خطای دسترسی:لطفا دوباره وارد شوید',
+                404 : 'محصول مورنظر یافت نشد'
+            })
+            toast.error(message)
+        }
+    })
 
-const ProductModalForm = ({ onClose , action , BtnContent }) => {
-    const queryClient = useQueryClient();
-
-    const { mutate , isPending } = useMutation({ mutationFn });
+    const isPending = addProductMutation.isPending || editProductMutation.isPending
 
     const formik = useFormik({
         initialValues : {
-            productName : '',
-            inventory : '',
-            price : '',
+            productName : product?.name || '',
+            inventory : product?.quantity || '',
+            price : product?.price || '',
         },
         validationSchema : modalFormSchema,
+        enableReinitialize : action === 'edit_product' ? true : false,
         onSubmit : val => {
             const data = {
                 name : val.productName,
@@ -36,23 +73,13 @@ const ProductModalForm = ({ onClose , action , BtnContent }) => {
 
             switch(action){
                 case 'add_product' : {
-                    mutate(data , {
-                        onSuccess : () => {
-                            queryClient.invalidateQueries(['products'])
-                            toast.success('محصول جدید با موفقیت اضافه شد')
-                        },
-                        onError : err => {
-                            const status = err?.status
-                            const message = getHttpErrorMessage(status , {
-                                401 : 'دسترسی غیرمجاز : لطفا دوباره وارد حساب کاربری خود شوید'
-                            })
-                            toast.error(message)
-                        }
-                    })
+                    addProductMutation.mutate(data)
+                    break;
                 }
 
                 case 'edit_product' : {
-
+                    editProductMutation.mutate(data)
+                    break;
                 }
             }
         }
@@ -67,7 +94,7 @@ const ProductModalForm = ({ onClose , action , BtnContent }) => {
 
     return (
         <>
-            <h2 className = 'font-semibold text-lg'>ایجاد محصول جدید</h2>
+            <h2 className = 'font-semibold text-lg'>{action === 'edit_product' ? 'ویرایش محصول' : 'ایجاد محصول جدید'}</h2>
             <div className = 'w-full'>
                 {
                     inputs.map((input , index) => {
@@ -78,7 +105,7 @@ const ProductModalForm = ({ onClose , action , BtnContent }) => {
                 }
                 
                 <div className = "w-full text-center">
-                    <button type = "submit" onClick = {formik.handleSubmit} className = 'bg-blue-500 hover:bg-blue-600 transition-all text-white p-2 px-10 rounded-lg ml-2 cursor-pointer'>{ isPending ? 'صبر کنید'  : BtnContent}</button>
+                    <button type = "submit" onClick = {formik.handleSubmit} disabled = {isPending || (action === 'edit_product' && !formik.dirty)} className = 'bg-blue-500 hover:bg-blue-600 transition-all text-white p-2 px-10 rounded-lg ml-2 cursor-pointer disabled:cursor-not-allowed'>{ isPending ? 'صبر کنید'  : BtnContent}</button>
                     <button onClick = {onClose} className = 'bg-neutral-400/65 hover:bg-neutral-400 transition-all p-2 px-10 rounded-lg cursor-pointer'>انصراف</button>
                 </div>
             </div>

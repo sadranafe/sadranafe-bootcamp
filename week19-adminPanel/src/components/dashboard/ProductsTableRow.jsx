@@ -20,7 +20,7 @@ const ProductsTableRow = ({ tableRow , openModal }) => {
                 </div>
                 
                 <div>
-                    <button onClick = {() => openModal('EDIT_PRODUCT')} className = 'cursor-pointer ml-4'>
+                    <button onClick = {() => openModal('EDIT_PRODUCT' , { product : tableRow })} className = 'cursor-pointer ml-4'>
                         <i className = "ph-light ph-note-pencil text-xl"></i>
                     </button>
                     
