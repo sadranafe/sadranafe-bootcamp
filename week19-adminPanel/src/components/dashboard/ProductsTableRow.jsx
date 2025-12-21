@@ -1,4 +1,4 @@
-const ProductsTableRow = ({ tableRow , openModal }) => {
+const ProductsTableRow = ({ tableRow , page , openModal }) => {
     const { id , name , price , quantity } = tableRow;
     return (
         <>
@@ -20,11 +20,11 @@ const ProductsTableRow = ({ tableRow , openModal }) => {
                 </div>
                 
                 <div>
-                    <button onClick = {() => openModal('EDIT_PRODUCT' , { product : tableRow })} className = 'cursor-pointer ml-4'>
+                    <button onClick = {() => openModal('EDIT_PRODUCT' , { product : tableRow , page })} className = 'cursor-pointer ml-4'>
                         <i className = "ph-light ph-note-pencil text-xl"></i>
                     </button>
                     
-                    <button onClick = {() => openModal('DELETE_PRODUCT' , id)} className = 'cursor-pointer'>
+                    <button onClick = {() => openModal('DELETE_PRODUCT' , {id , page})} className = 'cursor-pointer'>
                         <i className = "ph-light ph-trash-simple text-xl text-red-500"></i>
                     </button>
                 </div>

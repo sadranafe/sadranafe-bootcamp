@@ -2,7 +2,7 @@ import ProductsTableRow from './ProductsTableRow';
 import Loader from '../Loader';
 import EmptyState from '../EmptyState';
 
-const ProductsTable = ({ productsData , productIsPending , openModal }) => {
+const ProductsTable = ({ productsData , productIsPending , openModal , page }) => {
    
     return (
         <div className = 'w-full min-h-[415px] overflow-hidden rounded-xl mt-5 border border-white bg-white/25 shadow-[0_3px_10px_rgba(0,0,0,0.05)] backdrop-blur-xl'>
@@ -21,7 +21,7 @@ const ProductsTable = ({ productsData , productIsPending , openModal }) => {
                 <Loader/> :
                 productsData?.data.map((tableRow , index) => {
                     return(
-                        <ProductsTableRow key = {index} tableRow = {tableRow} openModal = {openModal}/>
+                        <ProductsTableRow key = {index} tableRow = {tableRow} page = {page} openModal = {openModal}/>
                     )
                 })
             }

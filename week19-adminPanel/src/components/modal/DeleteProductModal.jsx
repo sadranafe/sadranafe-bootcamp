@@ -3,7 +3,7 @@ import axios from "axios";
 import getHttpErrorMessage from "../../utils/httpErrorCodes";
 import toast from "react-hot-toast";
 
-const DeleteProductModal = ({ onClose , productId }) => {
+const DeleteProductModal = ({ onClose , productId , page }) => {
     const queryClient = useQueryClient()
     const mutationFn = () => {
         return axios.delete(`http://localhost:3000/products/${productId}` , {
@@ -17,7 +17,7 @@ const DeleteProductModal = ({ onClose , productId }) => {
         mutationFn,
         onSuccess : () => {
             toast.success('محصول موردنظر حذف شد')
-            queryClient.setQueryData(['products'],oldData => {
+            queryClient.setQueryData(['products' , page],oldData => {
                 if(!oldData) return oldData;
 
                 const updatedData = {
@@ -29,7 +29,7 @@ const DeleteProductModal = ({ onClose , productId }) => {
             })
 
             queryClient.invalidateQueries({
-                queryKey : ['products'],
+                queryKey : ['products' , page],
                 refetchType : 'active'
             })
             

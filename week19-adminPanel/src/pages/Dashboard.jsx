@@ -8,20 +8,21 @@ import ProductsPagination from "../components/dashboard/ProductsPagination";
 const Dashboard = () => {
     const [page , setPage] = useState(1)
     const limit = 6;
-    const queryKey = ['products'];
+    const queryKey = ['products' , page];
     const queryFn = () => {
         return axios.get(`http://localhost:3000/products?page=${page}&limit=${limit}`).then(res => { 
             return res.data
         })
     }
-    const { data , isPending } = useQuery({ queryKey, queryFn })
+    const { data , isPending } = useQuery({ queryKey, queryFn , keepPreviousData : true })
+    
     return (
         <>
             <div className = "w-9/12 mx-auto my-5">
                 <Navbar/>
 
-                <Layout productsData = {data} productIsPending = {isPending}/>
-                <ProductsPagination totalPages = {data?.totalPages} page = {data?.page} setPage = {setPage} />
+                <Layout productsData = {data} productIsPending = {isPending} page = {page}/>
+                <ProductsPagination totalPages = {data?.totalPages} page = {page} setPage = {setPage} />
             </div>
         </>
     );

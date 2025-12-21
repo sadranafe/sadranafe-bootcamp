@@ -8,7 +8,7 @@ import getHttpErrorMessage from "../../utils/httpErrorCodes";
 
 const token = localStorage.getItem('token')
 
-const ProductModalForm = ({ onClose , action , BtnContent , product }) => {
+const ProductModalForm = ({ onClose , action , BtnContent , product , page }) => {
     const queryClient = useQueryClient();
     const addProductMutation = useMutation({
         mutationFn :  data => {
@@ -19,7 +19,7 @@ const ProductModalForm = ({ onClose , action , BtnContent , product }) => {
             })
         },
         onSuccess : () => {
-            queryClient.invalidateQueries(['products'])
+            queryClient.invalidateQueries(['products' , page])
             toast.success('محصول جدید با موفقیت اضافه شد')
         },
         onError : () => {
@@ -40,7 +40,7 @@ const ProductModalForm = ({ onClose , action , BtnContent , product }) => {
             })
         },
         onSuccess : () => {
-            queryClient.invalidateQueries(['products']);
+            queryClient.invalidateQueries(['products' , page]);
             toast.success('محصول موردنظر با موفقیت ویرایش شد')
             onClose();
         },

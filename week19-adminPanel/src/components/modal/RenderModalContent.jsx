@@ -8,11 +8,11 @@ const RenderModalContent = (modal , onClose) => {
         }
 
         case 'EDIT_PRODUCT' : {
-            return <ProductModalForm onClose = {onClose} action = 'edit_product' product = {modal.data.product} productId = {modal.data.product.id} BtnContent = 'ثبت اطلاعات جدید' />
+            return <ProductModalForm onClose = {onClose} action = 'edit_product' product = {modal.data.product} productId = {modal.data.product.id} page = {modal.data.page} BtnContent = 'ثبت اطلاعات جدید' />
         }
 
         case 'DELETE_PRODUCT' :{
-            return <DeleteProductModal onClose = {onClose} productId = {modal.data}/>
+            return <DeleteProductModal onClose = {onClose} productId = {modal.data.id} page = {modal.data.page}/>
         }
 
         default : return null;
