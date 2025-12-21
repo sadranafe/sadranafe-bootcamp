@@ -13,7 +13,7 @@ const NotFound = () => {
             <div className = "w-full">
                 <Link to = '/' className = "mx-auto w-fit text-[15px] flex flex-wrap justify-center items-center hover:bg-blue-200 hover:border-blue-200 pr-3 border border-blue-400 p-1 rounded-lg transition-all">
                     برگشت
-                    <i className = 'bx bx-chevron-left'></i>
+                    <i className = "ph-light ph-caret-left"></i>
                 </Link>
             </div>
         </div>

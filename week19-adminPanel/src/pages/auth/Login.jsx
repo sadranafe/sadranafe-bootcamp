@@ -41,7 +41,7 @@ const Login = () => {
 
     const inputs = [
         { type : 'text' , labelName : 'userName' , icon : 'user'  , placeholder : 'نام کاربری'},
-        { type : 'password' , labelName : 'password' , icon : 'lock' , placeholder : 'رمز عبور' }
+        { type : 'password' , labelName : 'password' , icon : 'key' , placeholder : 'رمز عبور' }
     ]
 
     return (
