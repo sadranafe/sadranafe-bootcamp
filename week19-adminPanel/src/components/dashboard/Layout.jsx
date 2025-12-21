@@ -5,12 +5,8 @@ import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./ProductsTable";
 import RenderModalContent from "../modal/RenderModalContent";
 
-const Layout = ({ productsData , productIsPending , page , setPage }) => {
-    const [modal , setModal] = useState({ type : null , data : null })
+const Layout = ({ productsData , productIsPending , page , setPage , modal , setModal , openModalHandler }) => {
 
-    const openModalHandler = (type, data = null) => {
-        setModal({ type , data });
-    }
 
     const closeModalHandler = () => {
         setModal({ type : null , data : null })

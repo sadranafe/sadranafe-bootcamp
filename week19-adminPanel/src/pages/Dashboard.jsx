@@ -6,7 +6,13 @@ import Layout from "../components/dashboard/Layout";
 import ProductsPagination from "../components/dashboard/ProductsPagination";
 
 const Dashboard = () => {
-    const [page , setPage] = useState(1)
+    const [page , setPage] = useState(1);
+    const [modal , setModal] = useState({ type : null , data : null })
+
+    const openModalHandler = (type, data = null) => {
+        setModal({ type , data });
+    }
+
     const limit = 6;
     const queryKey = ['products' , page];
     const queryFn = () => {
@@ -19,9 +25,9 @@ const Dashboard = () => {
     return (
         <>
             <div className = "w-9/12 mx-auto my-5">
-                <Navbar/>
+                <Navbar productsData = {data} page = {page} setPage = {setPage} openModal = {openModalHandler}/>
 
-                <Layout productsData = {data} productIsPending = {isPending} page = {page} setPage = {setPage}/>
+                <Layout productsData = {data} productIsPending = {isPending} modal = {modal} setModal = {setModal} openModalHandler = {openModalHandler} page = {page} setPage = {setPage}/>
                 <ProductsPagination totalPages = {data?.totalPages} page = {page} setPage = {setPage} />
             </div>
         </>
