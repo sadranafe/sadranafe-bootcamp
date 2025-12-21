@@ -1,6 +1,6 @@
-import React from 'react';
-
 const Navbar = () => {
+    const userName = localStorage.getItem('userName')
+    
     return (
         <>
             <nav className = 'w-full flex flex-wrap justify-between items-center bg-white/25 border border-white shadow-[0_3px_10px_rgba(0,0,0,0.05)] backdrop-blur-xl rounded-xl px-3 p-1'>
@@ -15,7 +15,7 @@ const Navbar = () => {
                     </div>
 
                     <div>
-                        <p className = 'font-semibold'>محمد صدرا نافع</p>
+                        <p className = 'font-semibold'>{userName ? userName : 'guest'}</p>
                         <p className = 'text-neutral-500'>مدیر</p>
                     </div>
                 </div>

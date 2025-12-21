@@ -24,10 +24,9 @@ const Login = () => {
                 'password' : JSON.stringify(val.password)
             })
             .then(res => {
-                login(res.data.token)
+                login(res.data.token , formik.values.userName)
                 navigate('/dashboard')
             })
-            .finally(console.log(token))
             .catch(err => {
                 const status = err?.response?.status;
                 const message = getHttpErrorMessage(status,{
