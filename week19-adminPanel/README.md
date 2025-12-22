@@ -73,6 +73,7 @@ A modern admin panel built with React and provides a seamless management experie
 ```
 
 ## 📦 Installation
+get warehouse api from [here](https://github.com/sadranafe/sadranafe-bootcamp/tree/main/warehouse-api)
 
 ```bash
 # Clone this repo
@@ -93,6 +94,8 @@ npm run dev
 
 ```
 # for using Swagger
+first install it
+then:
 npm start
 ```
 
