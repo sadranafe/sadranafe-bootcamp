@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import Modal from "../modal/Modal";
 import ProductsHeader from "./ProductsHeader";
@@ -6,7 +5,6 @@ import ProductsTable from "./ProductsTable";
 import RenderModalContent from "../modal/RenderModalContent";
 
 const Layout = ({ productsData , productIsPending , page , setPage , modal , setModal , openModalHandler }) => {
-
 
     const closeModalHandler = () => {
         setModal({ type : null , data : null })
