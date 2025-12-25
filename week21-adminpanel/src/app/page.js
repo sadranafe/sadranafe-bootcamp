@@ -3,7 +3,7 @@ import React from 'react';
 const Page = () => {
   return (
     <>
-      <h1 className = 'bg-red-300'>سلام</h1>
+      <h1 className = 'text-3xl text-center'>صفحه اصلی &nbsp; | &nbsp;بزودی</h1>
     </>
   );
 };
