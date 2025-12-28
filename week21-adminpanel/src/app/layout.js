@@ -1,3 +1,4 @@
+import AuthProvider from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
@@ -8,17 +9,19 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fn" dir = "rtl">
+    <html lang = "fa" dir = "rtl">
       <body>
-        <header>
-          <Navbar/>
-        </header>
-        
-        <main>
-          {children}
-        </main>
+        <AuthProvider>
+          <header>
+            <Navbar/>
+          </header>
+          
+          <main>
+            {children}
+          </main>
 
-        <footer></footer>
+          <footer></footer>
+        </AuthProvider>
         </body>
     </html>
   );

@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { authFormSchema } from "@/app/utils/authFormSchema";
-import getHttpErrorMessage from "@/app/utils/getHttpErrorMessage";
+import { authFormSchema } from "@/utils/authFormSchema";
+import getHttpErrorMessage from "@/utils/getHttpErrorMessage";
 import AuthInput from "@/components/AuthInput";
 import Form from "@/components/Form";
 
