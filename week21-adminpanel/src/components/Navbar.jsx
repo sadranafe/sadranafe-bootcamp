@@ -19,7 +19,7 @@ const Navbar = () => {
                 
                 <div className = "flex flex-row-reverse gap-3 items-center">
                     <Link href = '/auth/register' className = "px-3 p-1.5 backdrop-blur-md bg-white/30 hover:bg-white/60 border border-white/65 rounded-lg">ثبت نام</Link>
-                    <Link href = '/auth/login' className = "bg-blue-400 px-4 p-1.5 rounded-md text-white hover:bg-blue-500 transition-all">ورود</Link>
+                    <Link href = '/auth/login' className = "bg-blue-500 px-4 p-1.5 rounded-md text-white hover:bg-blue-900 transition-all">ورود</Link>
                 </div>
             </div>
         </>

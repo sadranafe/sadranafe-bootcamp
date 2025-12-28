@@ -60,7 +60,7 @@ const RegisterPage = () => {
                 </div>
 
                 <div className = "w-full flex flex-wrap justify-center items-center gap-4">
-                    <button type = "submit" onClick = {formik.handleSubmit} className = "cursor-pointer text-white bg-cyan-500 hover:bg-blue-900 transition-all rounded-lg py-2 w-10/12">ثبت نام</button>
+                    <button type = "submit" onClick = {formik.handleSubmit} className = "cursor-pointer text-white bg-blue-500 hover:bg-blue-900 transition-all rounded-lg py-2 w-10/12">ثبت نام</button>
                     <Link href = '/auth/login' className = "text-blue-500 text-xs transition-all border-b border-transparent hover:border-b-blue-400">حساب کاربری دارید؟</Link>
                 </div>
             </Form>
