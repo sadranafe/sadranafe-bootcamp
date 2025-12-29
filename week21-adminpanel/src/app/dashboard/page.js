@@ -1,9 +1,17 @@
-const Page = () => {
+import DashboardClient from "./DashboardClient";
+
+export const metadata = {
+    title : 'Dashboard',
+};
+
+const Dashboard = () => {
     return (
         <>
-            <h1>THis is dashboard JS</h1>
+            <div className = "w-9/12 mx-auto my-5">
+                <DashboardClient/>
+            </div>
         </>
     );
 };
 
-export default Page;
+export default Dashboard;

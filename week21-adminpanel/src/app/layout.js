@@ -1,4 +1,4 @@
-import AuthProvider from "@/context/AuthContext";
+import Providers from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
@@ -11,17 +11,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang = "fa" dir = "rtl">
       <body>
-        <AuthProvider>
-          <header>
-            <Navbar/>
-          </header>
-          
-          <main>
-            {children}
-          </main>
+          <Providers>
+            <header>
+              <Navbar/>
+            </header>
+            
+            <main>
+              {children}
+            </main>
 
-          <footer></footer>
-        </AuthProvider>
+            <footer></footer>
+          </Providers>
         </body>
     </html>
   );
