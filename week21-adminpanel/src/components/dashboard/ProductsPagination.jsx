@@ -1,10 +1,12 @@
 'use client';
 
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
+
 const ProductsPagination = ({ page , setPage , totalPages }) => {
     return (
         <div className = "flex items-center justify-center px-2 gap-2">
             <button onClick = {() => setPage(prev => prev - 1)} title = "صفحه قبلی" className = "flex justify-center items-center cursor-pointer p-2 disabled:text-neutral-400 disabled:cursor-default" disabled = {page ? page === 1 ? true : false : true}>
-                <i className = "ph-light ph-arrow-right text-lg"></i>
+                <ArrowRightIcon size = {18} weight = "thin"/>
             </button>
 
             <div className = "flex justify-center items-center gap-1.5">
@@ -12,7 +14,7 @@ const ProductsPagination = ({ page , setPage , totalPages }) => {
             </div>
 
             <button onClick = {() => setPage(prev => prev + 1)} title = "صفحه بعدی" className = "flex justify-center items-center cursor-pointer p-2 disabled:text-neutral-400 disabled:cursor-default" disabled = {page === totalPages}>
-                <i className = "ph-light ph-arrow-left text-lg"></i>
+                <ArrowLeftIcon size = {18} weight = "thin"/>
             </button>
         </div>
     );

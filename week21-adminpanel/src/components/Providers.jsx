@@ -1,8 +1,8 @@
 'use client';
 
+import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AuthProvider from "@/context/AuthContext";
-import { useState } from "react";
 
 const Providers = ({ children }) => {
     const [ queryClient ] = useState(() => new QueryClient());

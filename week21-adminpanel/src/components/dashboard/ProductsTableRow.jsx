@@ -1,5 +1,7 @@
 'use client';
 
+import { NotePencilIcon, TrashSimpleIcon } from "@phosphor-icons/react";
+
 const ProductsTableRow = ({ tableRow , page , setPage , openModal }) => {
     const { id , name , price , quantity } = tableRow;
     return (
@@ -23,11 +25,11 @@ const ProductsTableRow = ({ tableRow , page , setPage , openModal }) => {
                 
                 <div>
                     <button onClick = {() => openModal('EDIT_PRODUCT' , { product : tableRow , page })} className = 'cursor-pointer ml-4'>
-                        <i className = "ph-light ph-note-pencil text-xl"></i>
+                        <NotePencilIcon size = {20} weight = "thin"/>
                     </button>
                     
                     <button onClick = {() => openModal('DELETE_PRODUCT' , {id , page , setPage})} className = 'cursor-pointer'>
-                        <i className = "ph-light ph-trash-simple text-xl text-red-500"></i>
+                        <TrashSimpleIcon weight = "thin" size = {20} className = "text-red-500"/>
                     </button>
                 </div>
             </div>

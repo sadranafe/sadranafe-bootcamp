@@ -8,7 +8,6 @@ import InputModal from "./InputModal";
 import modalFormSchema from "../../utils/modalFormSchema";
 import getHttpErrorMessage from "@/utils/getHttpErrorMessage";
 
-
 const token = localStorage.getItem('token')
 
 const ProductModalForm = ({ onClose , action , BtnContent , product , page }) => {

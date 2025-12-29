@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import ProductsTableRow from "./ProductsTableRow";
 import EmptyState from "../EmptyState";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 const Search = ({ products , page , setPage , openModal }) => {
     const [search , setSearch] = useState('');
@@ -28,8 +29,8 @@ const Search = ({ products , page , setPage , openModal }) => {
     return (
         <>
             <div className = 'relative w-10/12 flex items-center border-l border-neutral-200'>
-                <i className = "ph-light ph-magnifying-glass text-2xl"></i>
-                <input type = "text" value = {search} onChange = {ev => searchHandler(ev)} className = 'w-full p-2 caret-blue-500 text-blue-600 placeholder:text-neutral-400 selection:bg-black selection:text-white' placeholder = 'جستجو کالا'/>
+                <MagnifyingGlassIcon size = {24} weight = "thin" />
+                <input type = "text" value = {search} onChange = {ev => searchHandler(ev)} className = 'w-full p-2 caret-blue-500 text-blue-600 bg-transparent placeholder:text-neutral-400 selection:bg-black selection:text-white' placeholder = 'جستجو کالا'/>
 
                     {
                         debouncedSearch &&
