@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🧩 Admin Panel – Next.js
+A modern admin panel built with Next.js (App router). This project is a real-world migration from a traditional React SPA to Next.js, leveraging Server Components, Client Components, and best practices used in production teams.
 
-## Getting Started
+## 🚀 Features
+- 🎯 Client Components only where needed (forms, modals, interactions)
+- 🔐 Authentication system (Login / Register)
+- 📦 Products management (CRUD)
+- 🔍 Search with debouncing
+- 🔔 toast notifications
+- 🧩 Modular & scalable folder structure
 
-First, run the development server:
+## 🧱 Tech stack
+- ⚡ Next.js App Router ( V14 )
+- 🎨 TailwindCSS v4.1
+- 📋 Formik + Yup
+- React Query
+- Axios
+- Swagger
+- react-hot-toast
+
+
+## 🎯 Upcomming features
+1. Dashboard widgets
+2. Product categories & filtering
+3. Sorting products (price, inventory, newest)
+4. delete multiple products
+5. theme Switching
+6. Responsive UI
+7. Role-Based Access Control
+8. Refactor the state management
+
+
+
+## 📦 Installation
 
 ```bash
+# Clone this repo
+git clone https://github.com/sadranafe/sadranafe-bootcamp.git
+
+# Move into the project folder
+cd sadranafe-bootcamp
+cd week21-adminPanel
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+# for using Swagger
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+built with ❤️ by sadra nafe
